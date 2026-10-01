@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using these metadata."
+title: "szl-evidence-core"
+abstract: >-
+  The primitives under every SZL receipt, extracted once: canonical JSON under
+  two named profiles, algorithm-declared digests, SHA3-256 hash-chained receipt
+  ledgers ported byte-for-byte from szl-kernels, and the szl.lambda/v1 reference
+  vendored unchanged. Hash chains are UNSIGNED_HONEST: tamper-evident, not
+  authenticated. Lambda remains Conjecture 1 (open); every verdict is advisory.
+type: software
+version: 0.1.0
+date-released: "2026-10-01"
+license: Apache-2.0
+repository-code: "https://github.com/szl-holdings/szl-evidence-core"
+authors:
+  - given-names: Stephen
+    family-names: Lutar
+    orcid: "https://orcid.org/0009-0001-0110-4173"
+    affiliation: "SZL Holdings"
+keywords:
+  - receipts
+  - hash-chain
+  - canonical-json
+  - lambda-gate
+  - governed-ai

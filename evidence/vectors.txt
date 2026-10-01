@@ -1,0 +1,3 @@
+vendored reference: PASS value 60/60 verdict 60/60 code 60/60
+  vectors file canonical sha256 61bfb0410b9f0eaab0eb9f22f29cb7cb13cfde8c083fe308d895565d6ba9ebd4
+vectors exit=0

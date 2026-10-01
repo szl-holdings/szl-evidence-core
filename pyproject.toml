@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "szl-evidence-core"
+version = "0.1.0"
+description = "Canonical JSON, algorithm-declared digests, hash-chained receipt ledgers and the szl.lambda/v1 reference: the primitives under every SZL receipt, extracted once."
+readme = "README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.10"
+authors = [{ name = "Stephen P. Lutar", email = "stephenlutar2@gmail.com" }]
+dependencies = []
+classifiers = [
+  "Private :: Do Not Upload",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3 :: Only",
+  "Typing :: Typed",
+]
+
+[project.urls]
+Source = "https://github.com/szl-holdings/szl-kernels"
+Contract = "https://github.com/szl-holdings/szl-lambda-gate"
+
+[project.scripts]
+szl-evidence-core = "szl_evidence_core.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+szl_evidence_core = ["_vendor/PROVENANCE.md", "py.typed", "spec/*.json"]

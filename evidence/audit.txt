@@ -1,0 +1,10 @@
+receipt implementations with sort_keys json.dumps: 35; with classified hash-feeding calls: 32
+  algorithm (per file)            {'sha256': 22, 'both': 1, 'sha3_256': 12}
+  allow_nan on hash-feeding calls {'strict': 11, 'mixed': 0, 'none': 21}
+  hash-feeding without separators 1  ['szl-gov/tools/receipt.py']
+  hash-feeding ensure_ascii=False 7  ['a11oy/organs/amaru/amaru/receipts.py', 'a11oy/organs/amaru/sidecar/src/amaru/receipts.py', 'ayllu/ayllu/receipts.py', 'szl-quant-bench/src/szl_quant_bench/receipts.py', 'szl-retrieval-bench/src/szl_retrieval_bench/receipts.py', 'vertical-services/frontier_fabric/receipts.py', 'szl-nemo/szl_nemo/receipt.py']
+  files with unclassified calls   10  (assigned to a name; recall gap, listed not counted)
+  genesis 64 zeros                20/35
+primitive-divergence audit -> BLOCKED
+  wrote evidence/primitive-audit.json
+audit exit=2

@@ -1,0 +1,10 @@
+golden vectors: 60 (25 valid, 35 contract errors)
+  szl-lambda-gate reference: PASS  values 60/60
+  szl-khipu v1 path: PASS  values 60/60
+  szl-khipu wgm (total): BLOCKED  values 25/60  modes {'invalid input returned a value (masked)': 35}
+  szl-atelier wgm: BLOCKED  values 25/60  modes {'invalid input returned a value (masked)': 35}
+  szl-frontier wgm: BLOCKED  values 25/60  modes {'invalid input returned a value (masked)': 10, 'raised uncoded (geometric mean rejects n)': 12, 'raised uncoded (geometric mean requires )': 10, 'raised uncoded (must be real number, not)': 2, "raised uncoded (object of type 'NoneType)": 1}
+  skip szl_receipt.lambda_gate: ModuleNotFoundError: No module named 'in_toto_attestation'
+  a11oy/payloads/lambda_gate.py lambda_of: 4 axes, one zeroed -> Λ=0.023478339 -> BLOCKED (veto lost; contract requires exactly 0.0)
+  vsp-otel/collector/lambda_gate.py compute_lambda: 5 axes, one zeroed -> Λ=0.003659266 -> BLOCKED (veto lost; contract requires exactly 0.0)
+lambda-divergence exit=2

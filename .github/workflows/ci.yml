@@ -1,0 +1,56 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Gate 0 - fixtures (stdlib only, no install)
+        run: PYTHONPATH=src python -m szl_evidence_core selftest
+      - name: szl.lambda/v1 reference, 60 golden vectors, bitwise
+        run: PYTHONPATH=src python -m szl_evidence_core vectors
+      - name: Vendored reference is byte-identical to its recorded provenance
+        run: |
+          echo "57b264fa96056d1f2d77b797ba80eab087a729283f16416196fdd1423c9c532f  src/szl_evidence_core/_vendor/szl_lambda_v1.py" | sha256sum -c -
+      - name: Wheel builds and installs into a clean venv
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip wheel --no-deps -w dist .
+          python -m venv /tmp/clean && /tmp/clean/bin/pip install dist/*.whl
+          cd / && /tmp/clean/bin/python -m szl_evidence_core selftest && /tmp/clean/bin/python -m szl_evidence_core vectors
+
+  compat:
+    # Byte-equality against the ORIGINAL _chain.py files the package replaces.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - name: Fetch the consumer repositories at their default branches
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p /tmp/estate
+          for r in szl-kernels szl-blocked szl-provctl szl-receipt-attn szl-block-kv szl-maskmod YARQA-ATTN; do
+            git clone --depth 1 "https://github.com/szl-holdings/$r.git" "/tmp/estate/$r" || echo "::warning::could not clone $r"
+          done
+      - name: compat
+        run: PYTHONPATH=src python -m szl_evidence_core compat /tmp/estate

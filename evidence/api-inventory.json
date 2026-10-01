@@ -1,0 +1,1784 @@
+{
+ "receipts.py": [
+  {
+   "path": "szl-typesafe-triage/triage/receipts.py",
+   "repo": "szl-typesafe-triage",
+   "sha": "4b3510ff0972a6aa5aaf7022cad90b27386d2aa646984fbbe407e874de0ed5a6",
+   "bytes": 1497,
+   "lines": 49,
+   "funcs": [
+    "__init__",
+    "append",
+    "canonical",
+    "digest",
+    "verify"
+   ],
+   "classes": [
+    "ReceiptChain"
+   ],
+   "imports": [
+    "hashlib",
+    "json"
+   ],
+   "api": [
+    "ReceiptChain",
+    "__init__",
+    "append",
+    "canonical",
+    "digest",
+    "verify"
+   ]
+  },
+  {
+   "path": "szl-typesafe-triage/src/szl_triage/receipts.py",
+   "repo": "szl-typesafe-triage",
+   "sha": "0ffb9199be6f23ca850ceba91d8a67feaa498c5f340d32f8452680d3d55c630f",
+   "bytes": 2306,
+   "lines": 71,
+   "funcs": [
+    "_digest",
+    "_payload_hash",
+    "append",
+    "head",
+    "verify"
+   ],
+   "classes": [
+    "ReceiptChain"
+   ],
+   "imports": [
+    "__future__",
+    "contracts",
+    "dataclasses",
+    "hashlib",
+    "typing"
+   ],
+   "api": [
+    "ReceiptChain",
+    "_digest",
+    "_payload_hash",
+    "append",
+    "head",
+    "verify"
+   ]
+  },
+  {
+   "path": "szl-quant-bench/src/szl_quant_bench/receipts.py",
+   "repo": "szl-quant-bench",
+   "sha": "06df1d93d9978a788d6fdc8ebb35f2d0cc38804732b3d257067623c16bfe80a2",
+   "bytes": 1295,
+   "lines": 40,
+   "funcs": [
+    "__init__",
+    "_canonical",
+    "emit",
+    "verify"
+   ],
+   "classes": [
+    "ReceiptChain"
+   ],
+   "imports": [
+    "hashlib",
+    "json",
+    "time"
+   ],
+   "api": [
+    "ReceiptChain",
+    "__init__",
+    "_canonical",
+    "emit",
+    "verify"
+   ]
+  },
+  {
+   "path": "szl-calibration/src/szl_calibration/receipts.py",
+   "repo": "szl-calibration",
+   "sha": "57cd1df5acb3009dc0ab2e14290ec3f3a5e6ad696a192e4194f2ae3b6810eca7",
+   "bytes": 2836,
+   "lines": 82,
+   "funcs": [
+    "__init__",
+    "__len__",
+    "_digest",
+    "_verify_locked",
+    "append",
+    "canonical_json",
+    "to_jsonl",
+    "verify"
+   ],
+   "classes": [
+    "Receipt",
+    "ReceiptChain"
+   ],
+   "imports": [
+    "__future__",
+    "copy",
+    "dataclasses",
+    "datetime",
+    "hashlib",
+    "json",
+    "threading"
+   ],
+   "api": [
+    "Receipt",
+    "ReceiptChain",
+    "__init__",
+    "__len__",
+    "_digest",
+    "_verify_locked",
+    "append",
+    "canonical_json",
+    "to_jsonl",
+    "verify"
+   ]
+  },
+  {
+   "path": "lyte-services/lyte/domain/receipts.py",
+   "repo": "lyte-services",
+   "sha": "c8a7d04dc69899295412cd7c8fda95737720b04988c63dbe9dae0936e77aab83",
+   "bytes": 2203,
+   "lines": 68,
+   "funcs": [
+    "__post_init__",
+    "assert_no_sensitive_keys"
+   ],
+   "classes": [
+    "ReceiptDraft"
+   ],
+   "imports": [
+    "__future__",
+    "canonical",
+    "collections",
+    "dataclasses",
+    "re",
+    "truth",
+    "typing"
+   ],
+   "api": [
+    "ReceiptDraft",
+    "__post_init__",
+    "assert_no_sensitive_keys"
+   ]
+  },
+  {
+   "path": "szl-retrieval-bench/src/szl_retrieval_bench/receipts.py",
+   "repo": "szl-retrieval-bench",
+   "sha": "b64d11f39d26efcbcce8a8b1bc41dfc455e244fcecd048a8df4c89ef526accd8",
+   "bytes": 1081,
+   "lines": 36,
+   "funcs": [
+    "__init__",
+    "_canonical",
+    "emit",
+    "verify"
+   ],
+   "classes": [
+    "ReceiptChain"
+   ],
+   "imports": [
+    "hashlib",
+    "json",
+    "time"
+   ],
+   "api": [
+    "ReceiptChain",
+    "__init__",
+    "_canonical",
+    "emit",
+    "verify"
+   ]
+  },
+  {
+   "path": "szl-energy-attest/src/energy_meter_proxy/receipts.py",
+   "repo": "szl-energy-attest",
+   "sha": "a0877da19f03553c4fdc91174fb7ec4c684686ea35ff0202e905c6bf9fd47ee2",
+   "bytes": 7199,
+   "lines": 174,
+   "funcs": [
+    "__init__",
+    "_append_durable",
+    "_sign_envelope",
+    "_utcnow",
+    "canonical_json",
+    "digest_body",
+    "issue",
+    "records",
+    "rollup_source_range"
+   ],
+   "classes": [
+    "ReceiptIssuer"
+   ],
+   "imports": [
+    "__future__",
+    "datetime",
+    "fcntl",
+    "hashlib",
+    "json",
+    "os",
+    "szl_receipt",
+    "threading",
+    "typing",
+    "uuid"
+   ],
+   "api": [
+    "ReceiptIssuer",
+    "__init__",
+    "_append_durable",
+    "_sign_envelope",
+    "_utcnow",
+    "canonical_json",
+    "digest_body",
+    "issue",
+    "records",
+    "rollup_source_range"
+   ]
+  },
+  {
+   "path": "szl-evidence-mandate/src/szl_evidence/receipts.py",
+   "repo": "szl-evidence-mandate",
+   "sha": "efe5b695edf118a05746d8301fc264aa689aac0c02fdbda822c5abb1c8fe56c7",
+   "bytes": 4365,
+   "lines": 116,
+   "funcs": [
+    "_try_sign",
+    "chain",
+    "code_revision",
+    "receipt_hash",
+    "seal",
+    "simple_receipt",
+    "tool_block",
+    "write_receipt"
+   ],
+   "classes": [],
+   "imports": [
+    "__future__",
+    "base64",
+    "cryptography",
+    "functools",
+    "models",
+    "os",
+    "pathlib",
+    "typing"
+   ],
+   "api": [
+    "_try_sign",
+    "chain",
+    "code_revision",
+    "receipt_hash",
+    "seal",
+    "simple_receipt",
+    "tool_block",
+    "write_receipt"
+   ]
+  },
+  {
+   "path": "szl-router/szl_router/receipts.py",
+   "repo": "szl-router",
+   "sha": "70a8d14ffbf425e2a2949968583e874a371be9d4fc413052da0d00e86a8d66f4",
+   "bytes": 11161,
+   "lines": 275,
+   "funcs": [
+    "__init__",
+    "_derive_public_pem",
+    "_env_truthy",
+    "_try_import",
+    "build_body",
+    "build_envelope",
+    "decode_header",
+    "encode_header",
+    "init_signing",
+    "public_key_pem",
+    "request_digest",
+    "signing_state",
+    "verify_envelope"
+   ],
+   "classes": [
+    "_KeyState"
+   ],
+   "imports": [
+    "__future__",
+    "base64",
+    "cryptography",
+    "hashlib",
+    "json",
+    "os",
+    "szl_receipt",
+    "threading",
+    "typing"
+   ],
+   "api": [
+    "_KeyState",
+    "__init__",
+    "_derive_public_pem",
+    "_env_truthy",
+    "_try_import",
+    "build_body",
+    "build_envelope",
+    "decode_header",
+    "encode_header",
+    "init_signing",
+    "public_key_pem",
+    "request_digest",
+    "signing_state",
+    "verify_envelope"
+   ]
+  },
+  {
+   "path": "szl-command-center/backend/collectors/receipts.py",
+   "repo": "szl-command-center",
+   "sha": "b8dc944679dce2beb8a18c404cc461299df578e0e9f15024d0f180e88dce0eeb",
+   "bytes": 5376,
+   "lines": 141,
+   "funcs": [
+    "_bundle_facts",
+    "_master_demo_state",
+    "_run_verifier",
+    "collect"
+   ],
+   "classes": [],
+   "imports": [
+    "__future__",
+    "base",
+    "glob",
+    "json",
+    "os",
+    "re",
+    "subprocess"
+   ],
+   "api": [
+    "_bundle_facts",
+    "_master_demo_state",
+    "_run_verifier",
+    "collect"
+   ]
+  },
+  {
+   "path": "szl-v14/payload_builder/dist/extracted/szl-v14/src/szl_v14/lib/receipts.py",
+   "repo": "szl-v14",
+   "sha": "c9803a1d07011bd71384f9b16f2a99fac8671e7814caa33aa72f5b3ff04c2ca0",
+   "bytes": 1629,
+   "lines": 56,
+   "funcs": [
+    "to_dict",
+    "write"
+   ],
+   "classes": [
+    "Receipt"
+   ],
+   "imports": [
+    "__future__",
+    "dataclasses",
+    "datetime",
+    "pathlib",
+    "szl_v14",
+    "typing"
+   ],
+   "api": [
+    "Receipt",
+    "to_dict",
+    "write"
+   ]
+  },
+  {
+   "path": "szl-v14/szl-v14/src/szl_v14/lib/receipts.py",
+   "repo": "szl-v14",
+   "sha": "c9803a1d07011bd71384f9b16f2a99fac8671e7814caa33aa72f5b3ff04c2ca0",
+   "bytes": 1629,
+   "lines": 56,
+   "funcs": [
+    "to_dict",
+    "write"
+   ],
+   "classes": [
+    "Receipt"
+   ],
+   "imports": [
+    "__future__",
+    "dataclasses",
+    "datetime",
+    "pathlib",
+    "szl_v14",
+    "typing"
+   ],
+   "api": [
+    "Receipt",
+    "to_dict",
+    "write"
+   ]
+  },
+  {
+   "path": "david-leads/app/receipts.py",
+   "repo": "david-leads",
+   "sha": "3dbfcb95cd6187ebf77d365190974fb1250055dede7150e5c6de9b6f53b6606c",
+   "bytes": 13146,
+   "lines": 327,
+   "funcs": [
+    "_canon",
+    "_normalize_signals",
+    "_pae",
+    "_source_classes",
+    "_sources_permitted",
+    "_try_sign",
+    "_witness",
+    "make_brief_receipt",
+    "make_receipt",
+    "reset_chain",
+    "verify_receipt"
+   ],
+   "classes": [],
+   "imports": [
+    "__future__",
+    "base64",
+    "cryptography",
+    "datetime",
+    "hashlib",
+    "json",
+    "os",
+    "typing"
+   ],
+   "api": [
+    "_canon",
+    "_normalize_signals",
+    "_pae",
+    "_source_classes",
+    "_sources_permitted",
+    "_try_sign",
+    "_witness",
+    "make_brief_receipt",
+    "make_receipt",
+    "reset_chain",
+    "verify_receipt"
+   ]
+  },
+  {
+   "path": "david-leads/backend/receipts.py",
+   "repo": "david-leads",
+   "sha": "9f7ec74d4eacd430aa4702c269839b19ef92e596d4ef9420dc1b3eb41f386c0a",
+   "bytes": 8213,
+   "lines": 205,
+   "funcs": [
+    "_canon",
+    "_pae",
+    "_try_sign",
+    "make_receipt",
+    "reset_chain",
+    "verify_receipt"
+   ],
+   "classes": [],
+   "imports": [
+    "__future__",
+    "base64",
+    "cryptography",
+    "datetime",
+    "hashlib",
+    "json",
+    "os",
+    "typing"
+   ],
+   "api": [
+    "_canon",
+    "_pae",
+    "_try_sign",
+    "make_receipt",
+    "reset_chain",
+    "verify_receipt"
+   ]
+  },
+  {
+   "path": "gdw-frontier/gdw_x/governance/receipts.py",
+   "repo": "gdw-frontier",
+   "sha": "c65770fb52af93e6649a79f3dc5df0327b1a1e9e156f77286a4459c3327fdf47",
+   "bytes": 2556,
+   "lines": 74,
+   "funcs": [
+    "__init__",
+    "deterministic_receipt_hash",
+    "issue_manifest",
+    "sign",
+    "verify",
+    "verify_manifest"
+   ],
+   "classes": [
+    "ManifestAuthenticator"
+   ],
+   "imports": [
+    "__future__",
+    "datetime",
+    "gdw_x",
+    "hashlib",
+    "hmac",
+    "secrets",
+    "typing"
+   ],
+   "api": [
+    "ManifestAuthenticator",
+    "__init__",
+    "deterministic_receipt_hash",
+    "issue_manifest",
+    "sign",
+    "verify",
+    "verify_manifest"
+   ]
+  },
+  {
+   "path": "a11oy/payloads/round-10-estate/a11oy/receipts.py",
+   "repo": "a11oy",
+   "sha": "a7dacb81b4a2a1a7acaeec4cafd29549ed21e4529dd58cc989aaa7026e62a021",
+   "bytes": 7769,
+   "lines": 202,
+   "funcs": [
+    "__init__",
+    "_load_or_create",
+    "build_predicate",
+    "canonical",
+    "decode_statement",
+    "keyid",
+    "pae",
+    "public_descriptor",
+    "sha256_hex",
+    "sign",
+    "sign_envelope",
+    "verify"
+   ],
+   "classes": [
+    "HonestyViolation",
+    "Signer"
+   ],
+   "imports": [
+    "__future__",
+    "base64",
+    "cryptography",
+    "datetime",
+    "hashlib",
+    "hmac",
+    "json",
+    "os",
+    "pathlib"
+   ],
+   "api": [
+    "HonestyViolation",
+    "Signer",
+    "__init__",
+    "_load_or_create",
+    "build_predicate",
+    "canonical",
+    "decode_statement",
+    "keyid",
+    "pae",
+    "public_descriptor",
+    "sha256_hex",
+    "sign",
+    "sign_envelope",
+    "verify"
+   ]
+  },
+  {
+   "path": "a11oy/organs/amaru/amaru/receipts.py",
+   "repo": "a11oy",
+   "sha": "fe0acb08a40ffeca47090bba89532f379fc254a50d3c818805814a916d94b79d",
+   "bytes": 3563,
+   "lines": 126,
+   "funcs": [
+    "__init__",
+    "all",
+    "append",
+    "canonical_json",
+    "hash_json",
+    "head",
+    "length",
+    "sha256_hex",
+    "to_dict"
+   ],
+   "classes": [
+    "Receipt",
+    "ReceiptChain"
+   ],
+   "imports": [
+    "__future__",
+    "dataclasses",
+    "hashlib",
+    "json",
+    "threading",
+    "time",
+    "typing"
+   ],
+   "api": [
+    "Receipt",
+    "ReceiptChain",
+    "__init__",
+    "all",
+    "append",
+    "canonical_json",
+    "hash_json",
+    "head",
+    "length",
+    "sha256_hex",
+    "to_dict"
+   ]
+  },
+  {
+   "path": "a11oy/organs/amaru/sidecar/src/amaru/receipts.py",
+   "repo": "a11oy",
+   "sha": "fe0acb08a40ffeca47090bba89532f379fc254a50d3c818805814a916d94b79d",
+   "bytes": 3563,
+   "lines": 126,
+   "funcs": [
+    "__init__",
+    "all",
+    "append",
+    "canonical_json",
+    "hash_json",
+    "head",
+    "length",
+    "sha256_hex",
+    "to_dict"
+   ],
+   "classes": [
+    "Receipt",
+    "ReceiptChain"
+   ],
+   "imports": [
+    "__future__",
+    "dataclasses",
+    "hashlib",
+    "json",
+    "threading",
+    "time",
+    "typing"
+   ],
+   "api": [
+    "Receipt",
+    "ReceiptChain",
+    "__init__",
+    "all",
+    "append",
+    "canonical_json",
+    "hash_json",
+    "head",
+    "length",
+    "sha256_hex",
+    "to_dict"
+   ]
+  },
+  {
+   "path": "szl-frontier/python/szl_frontier/receipts.py",
+   "repo": "szl-frontier",
+   "sha": "a9e2fed9c4c72efe3836bcdf7043e0e0ec8851bbae70af365d5f23bf02fdd7f1",
+   "bytes": 9577,
+   "lines": 278,
+   "funcs": [
+    "__init__",
+    "_receipt_id",
+    "as_mapping",
+    "canonical_json",
+    "create",
+    "digest",
+    "from_mapping",
+    "sealed",
+    "sha256_hex",
+    "unsigned_mapping",
+    "verify"
+   ],
+   "classes": [
+    "EvidenceReceipt",
+    "ReceiptError",
+    "ReceiptFactory",
+    "ReceiptSignature"
+   ],
+   "imports": [
+    "__future__",
+    "dataclasses",
+    "datetime",
+    "domain",
+    "hashlib",
+    "hmac",
+    "json",
+    "typing"
+   ],
+   "api": [
+    "EvidenceReceipt",
+    "ReceiptError",
+    "ReceiptFactory",
+    "ReceiptSignature",
+    "__init__",
+    "_receipt_id",
+    "as_mapping",
+    "canonical_json",
+    "create",
+    "digest",
+    "from_mapping",
+    "sealed",
+    "sha256_hex",
+    "unsigned_mapping",
+    "verify"
+   ]
+  },
+  {
+   "path": "ayllu/ayllu/receipts.py",
+   "repo": "ayllu",
+   "sha": "16f99aed88708e564032885955df0afb7a570b99615ca9cc0435b210857ca2ed",
+   "bytes": 3438,
+   "lines": 108,
+   "funcs": [
+    "canonical_dumps",
+    "chain_turns",
+    "make_receipt",
+    "sha256_json",
+    "sha3_256_hex",
+    "wrap_unsigned"
+   ],
+   "classes": [],
+   "imports": [
+    "__future__",
+    "base64",
+    "hashlib",
+    "json",
+    "time",
+    "typing"
+   ],
+   "api": [
+    "canonical_dumps",
+    "chain_turns",
+    "make_receipt",
+    "sha256_json",
+    "sha3_256_hex",
+    "wrap_unsigned"
+   ]
+  },
+  {
+   "path": "szl-mesh/src/szl_mesh/receipts.py",
+   "repo": "szl-mesh",
+   "sha": "946ae9e230a36e389a30a095652bc0c349986a8dd0cc149cc611a9f129ff85b0",
+   "bytes": 10752,
+   "lines": 294,
+   "funcs": [
+    "_b64url_decode",
+    "_b64url_encode",
+    "build_dsse_receipt",
+    "build_state_transition_statement",
+    "decode_statement",
+    "generate_node_keypair",
+    "node_id_from_pubkey",
+    "pae",
+    "utc_now_iso",
+    "validate_receipt",
+    "verify_receipt_signature"
+   ],
+   "classes": [
+    "GateResult"
+   ],
+   "imports": [
+    "__future__",
+    "base64",
+    "crdt",
+    "cryptography",
+    "dataclasses",
+    "datetime",
+    "hashlib",
+    "json",
+    "typing"
+   ],
+   "api": [
+    "GateResult",
+    "_b64url_decode",
+    "_b64url_encode",
+    "build_dsse_receipt",
+    "build_state_transition_statement",
+    "decode_statement",
+    "generate_node_keypair",
+    "node_id_from_pubkey",
+    "pae",
+    "utc_now_iso",
+    "validate_receipt",
+    "verify_receipt_signature"
+   ]
+  },
+  {
+   "path": "vertical-services/frontier_fabric/receipts.py",
+   "repo": "vertical-services",
+   "sha": "44452d7178fe9506073bf18deb6aeb71723c302598c1ed10c8768975645306be",
+   "bytes": 3897,
+   "lines": 117,
+   "funcs": [
+    "_normalize",
+    "append",
+    "canonical_json",
+    "head",
+    "sha256_hex",
+    "utc_now",
+    "verify"
+   ],
+   "classes": [
+    "CanonicalizationError",
+    "ReceiptChain"
+   ],
+   "imports": [
+    "__future__",
+    "dataclasses",
+    "datetime",
+    "hashlib",
+    "json",
+    "math",
+    "typing"
+   ],
+   "api": [
+    "CanonicalizationError",
+    "ReceiptChain",
+    "_normalize",
+    "append",
+    "canonical_json",
+    "head",
+    "sha256_hex",
+    "utc_now",
+    "verify"
+   ]
+  },
+  {
+   "path": "vertical-services/services/finance/receipts.py",
+   "repo": "vertical-services",
+   "sha": "e846ece85d7a0e637eee31d46b1155ca9c56298661445cb9d6f1c4c6c3c8e1dd",
+   "bytes": 2430,
+   "lines": 68,
+   "funcs": [
+    "__init__",
+    "_canon",
+    "_head",
+    "append",
+    "entries",
+    "verify"
+   ],
+   "classes": [
+    "ReceiptChain"
+   ],
+   "imports": [
+    "__future__",
+    "hashlib",
+    "json",
+    "time",
+    "typing"
+   ],
+   "api": [
+    "ReceiptChain",
+    "__init__",
+    "_canon",
+    "_head",
+    "append",
+    "entries",
+    "verify"
+   ]
+  },
+  {
+   "path": "szl-platform/packages/szl-claims-api/src/szl_claims_api/receipts.py",
+   "repo": "szl-platform",
+   "sha": "3a114c4664a77e6dde2cbc07516b6bd2fcc29303655c2cc0e4dea1d89d1d038f",
+   "bytes": 6470,
+   "lines": 166,
+   "funcs": [
+    "__init__",
+    "__len__",
+    "_build",
+    "_created_at_for",
+    "claim_canonical_bytes",
+    "claim_content_hash",
+    "policy_digest",
+    "receipt_for"
+   ],
+   "classes": [
+    "ReceiptMinter"
+   ],
+   "imports": [
+    "__future__",
+    "szl_claims_api",
+    "szl_receipts",
+    "threading",
+    "typing"
+   ],
+   "api": [
+    "ReceiptMinter",
+    "__init__",
+    "__len__",
+    "_build",
+    "_created_at_for",
+    "claim_canonical_bytes",
+    "claim_content_hash",
+    "policy_digest",
+    "receipt_for"
+   ]
+  },
+  {
+   "path": "szl-platform/packages/kids-sim/src/kids_sim/receipts.py",
+   "repo": "szl-platform",
+   "sha": "d2216cf1fdcf4c246fd1214b36bfe965c0131a787cf1f775fa4a2c0782b419f5",
+   "bytes": 4676,
+   "lines": 137,
+   "funcs": [
+    "__init__",
+    "canonical_event_bytes",
+    "compute_receipt",
+    "counter",
+    "emit",
+    "receipts",
+    "root",
+    "to_dict",
+    "verify_chain"
+   ],
+   "classes": [
+    "ChainVerificationError",
+    "Receipt",
+    "ReceiptEngine"
+   ],
+   "imports": [
+    "__future__",
+    "dataclasses",
+    "hashlib",
+    "json",
+    "typing"
+   ],
+   "api": [
+    "ChainVerificationError",
+    "Receipt",
+    "ReceiptEngine",
+    "__init__",
+    "canonical_event_bytes",
+    "compute_receipt",
+    "counter",
+    "emit",
+    "receipts",
+    "root",
+    "to_dict",
+    "verify_chain"
+   ]
+  }
+ ],
+ "_chain.py": [
+  {
+   "path": "szl-receipt-attn/torch-ext/szl_receipt_attn/_chain.py",
+   "repo": "szl-receipt-attn",
+   "sha": "46b4fa675d26f3b566b39d5ec83f9ff67421c6bd14cd2d4a173f56409af65949",
+   "bytes": 1396,
+   "lines": 49,
+   "funcs": [
+    "__init__",
+    "__len__",
+    "_canon",
+    "_sha3",
+    "emit",
+    "head",
+    "verify"
+   ],
+   "classes": [
+    "ReceiptChain"
+   ],
+   "imports": [
+    "__future__",
+    "hashlib",
+    "json",
+    "typing"
+   ],
+   "api": [
+    "ReceiptChain",
+    "__init__",
+    "__len__",
+    "_canon",
+    "_sha3",
+    "emit",
+    "head",
+    "verify"
+   ]
+  },
+  {
+   "path": "szl-blocked/build/torch-universal/szl_blocked/_chain.py",
+   "repo": "szl-blocked",
+   "sha": "bfe91348b57948a7dd0203bb6834ab644d32af9a2746c4f81e68df035b40b7f3",
+   "bytes": 6685,
+   "lines": 173,
+   "funcs": [
+    "__init__",
+    "_digest_body",
+    "count",
+    "emit",
+    "emit_energy",
+    "emit_lambda",
+    "head",
+    "kernels_touched",
+    "tail",
+    "tensor_digest",
+    "to_json",
+    "verify",
+    "verify_json"
+   ],
+   "classes": [
+    "UnifiedReceiptChain"
+   ],
+   "imports": [
+    "__future__",
+    "hashlib",
+    "json",
+    "szl_kernels",
+    "threading",
+    "time",
+    "torch",
+    "typing"
+   ],
+   "api": [
+    "UnifiedReceiptChain",
+    "__init__",
+    "_digest_body",
+    "count",
+    "emit",
+    "emit_energy",
+    "emit_lambda",
+    "head",
+    "kernels_touched",
+    "tail",
+    "tensor_digest",
+    "to_json",
+    "verify",
+    "verify_json"
+   ]
+  },
+  {
+   "path": "szl-blocked/torch-ext/szl_blocked/_chain.py",
+   "repo": "szl-blocked",
+   "sha": "bfe91348b57948a7dd0203bb6834ab644d32af9a2746c4f81e68df035b40b7f3",
+   "bytes": 6685,
+   "lines": 173,
+   "funcs": [
+    "__init__",
+    "_digest_body",
+    "count",
+    "emit",
+    "emit_energy",
+    "emit_lambda",
+    "head",
+    "kernels_touched",
+    "tail",
+    "tensor_digest",
+    "to_json",
+    "verify",
+    "verify_json"
+   ],
+   "classes": [
+    "UnifiedReceiptChain"
+   ],
+   "imports": [
+    "__future__",
+    "hashlib",
+    "json",
+    "szl_kernels",
+    "threading",
+    "time",
+    "torch",
+    "typing"
+   ],
+   "api": [
+    "UnifiedReceiptChain",
+    "__init__",
+    "_digest_body",
+    "count",
+    "emit",
+    "emit_energy",
+    "emit_lambda",
+    "head",
+    "kernels_touched",
+    "tail",
+    "tensor_digest",
+    "to_json",
+    "verify",
+    "verify_json"
+   ]
+  },
+  {
+   "path": "szl-provctl/build/torch-universal/szl_provctl/_chain.py",
+   "repo": "szl-provctl",
+   "sha": "0da3b4ac617251bb0d2be72c1ad7aac6ef0d18b74371b806c97d1b94d4c529bb",
+   "bytes": 5568,
+   "lines": 147,
+   "funcs": [
+    "__init__",
+    "_digest_body",
+    "count",
+    "emit",
+    "emit_energy",
+    "head",
+    "kernels_touched",
+    "tail",
+    "tensor_digest",
+    "to_json",
+    "verify",
+    "verify_json"
+   ],
+   "classes": [
+    "UnifiedReceiptChain"
+   ],
+   "imports": [
+    "__future__",
+    "hashlib",
+    "json",
+    "szl_kernels",
+    "threading",
+    "time",
+    "torch",
+    "typing"
+   ],
+   "api": [
+    "UnifiedReceiptChain",
+    "__init__",
+    "_digest_body",
+    "count",
+    "emit",
+    "emit_energy",
+    "head",
+    "kernels_touched",
+    "tail",
+    "tensor_digest",
+    "to_json",
+    "verify",
+    "verify_json"
+   ]
+  },
+  {
+   "path": "szl-provctl/torch-ext/szl_provctl/_chain.py",
+   "repo": "szl-provctl",
+   "sha": "0da3b4ac617251bb0d2be72c1ad7aac6ef0d18b74371b806c97d1b94d4c529bb",
+   "bytes": 5568,
+   "lines": 147,
+   "funcs": [
+    "__init__",
+    "_digest_body",
+    "count",
+    "emit",
+    "emit_energy",
+    "head",
+    "kernels_touched",
+    "tail",
+    "tensor_digest",
+    "to_json",
+    "verify",
+    "verify_json"
+   ],
+   "classes": [
+    "UnifiedReceiptChain"
+   ],
+   "imports": [
+    "__future__",
+    "hashlib",
+    "json",
+    "szl_kernels",
+    "threading",
+    "time",
+    "torch",
+    "typing"
+   ],
+   "api": [
+    "UnifiedReceiptChain",
+    "__init__",
+    "_digest_body",
+    "count",
+    "emit",
+    "emit_energy",
+    "head",
+    "kernels_touched",
+    "tail",
+    "tensor_digest",
+    "to_json",
+    "verify",
+    "verify_json"
+   ]
+  },
+  {
+   "path": "szl-kernels/build/torch-universal/szl_kernels/_chain.py",
+   "repo": "szl-kernels",
+   "sha": "9344309099b3b8e8f4a30f7d412c699ea8637a09d3cbf35d101d8c3beca01b56",
+   "bytes": 16424,
+   "lines": 373,
+   "funcs": [
+    "__init__",
+    "_digest_body",
+    "_snapshot_attrs",
+    "_validate_checkpoint",
+    "_verify_records",
+    "checkpoint",
+    "count",
+    "emit",
+    "emit_energy",
+    "emit_lambda",
+    "emit_norm",
+    "export_with_checkpoint",
+    "head",
+    "kernels_touched",
+    "reject_constant",
+    "tail",
+    "tensor_digest",
+    "to_json",
+    "unique_object",
+    "verify",
+    "verify_json"
+   ],
+   "classes": [
+    "UnifiedReceiptChain"
+   ],
+   "imports": [
+    "__future__",
+    "copy",
+    "hashlib",
+    "hmac",
+    "json",
+    "math",
+    "re",
+    "struct",
+    "threading",
+    "time",
+    "torch",
+    "typing"
+   ],
+   "api": [
+    "UnifiedReceiptChain",
+    "__init__",
+    "_digest_body",
+    "_snapshot_attrs",
+    "_validate_checkpoint",
+    "_verify_records",
+    "checkpoint",
+    "count",
+    "emit",
+    "emit_energy",
+    "emit_lambda",
+    "emit_norm",
+    "export_with_checkpoint",
+    "head",
+    "kernels_touched",
+    "reject_constant",
+    "tail",
+    "tensor_digest",
+    "to_json",
+    "unique_object",
+    "verify",
+    "verify_json"
+   ]
+  },
+  {
+   "path": "szl-kernels/corpus/kernels/build/torch-universal/szl_kernels/_chain.py",
+   "repo": "szl-kernels",
+   "sha": "73f259217f1e967cf7a056074c5d1f3e5b6b3f4c989eadce508313bf6f130bd3",
+   "bytes": 11479,
+   "lines": 266,
+   "funcs": [
+    "__init__",
+    "_digest_body",
+    "count",
+    "emit",
+    "emit_energy",
+    "emit_lambda",
+    "emit_norm",
+    "head",
+    "kernels_touched",
+    "tail",
+    "tensor_digest",
+    "to_json",
+    "verify",
+    "verify_json"
+   ],
+   "classes": [
+    "UnifiedReceiptChain"
+   ],
+   "imports": [
+    "__future__",
+    "hashlib",
+    "json",
+    "threading",
+    "time",
+    "torch",
+    "typing"
+   ],
+   "api": [
+    "UnifiedReceiptChain",
+    "__init__",
+    "_digest_body",
+    "count",
+    "emit",
+    "emit_energy",
+    "emit_lambda",
+    "emit_norm",
+    "head",
+    "kernels_touched",
+    "tail",
+    "tensor_digest",
+    "to_json",
+    "verify",
+    "verify_json"
+   ]
+  },
+  {
+   "path": "szl-kernels/torch-ext/szl_kernels/_chain.py",
+   "repo": "szl-kernels",
+   "sha": "9344309099b3b8e8f4a30f7d412c699ea8637a09d3cbf35d101d8c3beca01b56",
+   "bytes": 16424,
+   "lines": 373,
+   "funcs": [
+    "__init__",
+    "_digest_body",
+    "_snapshot_attrs",
+    "_validate_checkpoint",
+    "_verify_records",
+    "checkpoint",
+    "count",
+    "emit",
+    "emit_energy",
+    "emit_lambda",
+    "emit_norm",
+    "export_with_checkpoint",
+    "head",
+    "kernels_touched",
+    "reject_constant",
+    "tail",
+    "tensor_digest",
+    "to_json",
+    "unique_object",
+    "verify",
+    "verify_json"
+   ],
+   "classes": [
+    "UnifiedReceiptChain"
+   ],
+   "imports": [
+    "__future__",
+    "copy",
+    "hashlib",
+    "hmac",
+    "json",
+    "math",
+    "re",
+    "struct",
+    "threading",
+    "time",
+    "torch",
+    "typing"
+   ],
+   "api": [
+    "UnifiedReceiptChain",
+    "__init__",
+    "_digest_body",
+    "_snapshot_attrs",
+    "_validate_checkpoint",
+    "_verify_records",
+    "checkpoint",
+    "count",
+    "emit",
+    "emit_energy",
+    "emit_lambda",
+    "emit_norm",
+    "export_with_checkpoint",
+    "head",
+    "kernels_touched",
+    "reject_constant",
+    "tail",
+    "tensor_digest",
+    "to_json",
+    "unique_object",
+    "verify",
+    "verify_json"
+   ]
+  },
+  {
+   "path": "szl-block-kv/torch-ext/szl_block_kv/_chain.py",
+   "repo": "szl-block-kv",
+   "sha": "463d71e2c4d4272758eb4acd2922feb30766c3150888898aa07dc33da62b8a90",
+   "bytes": 1310,
+   "lines": 35,
+   "funcs": [
+    "__init__",
+    "__len__",
+    "_canon",
+    "_sha3",
+    "emit",
+    "head",
+    "verify"
+   ],
+   "classes": [
+    "ReceiptChain"
+   ],
+   "imports": [
+    "__future__",
+    "hashlib",
+    "json",
+    "typing"
+   ],
+   "api": [
+    "ReceiptChain",
+    "__init__",
+    "__len__",
+    "_canon",
+    "_sha3",
+    "emit",
+    "head",
+    "verify"
+   ]
+  },
+  {
+   "path": "YARQA-ATTN/torch-ext/yarqa_attn/_chain.py",
+   "repo": "YARQA-ATTN",
+   "sha": "6e4f6dcd94fb554fefca00d7897792161c1a7b506c524c41df12cb5376287b7e",
+   "bytes": 1515,
+   "lines": 51,
+   "funcs": [
+    "__init__",
+    "__len__",
+    "_canon",
+    "emit",
+    "head",
+    "sha3_hex",
+    "verify"
+   ],
+   "classes": [
+    "ReceiptChain"
+   ],
+   "imports": [
+    "__future__",
+    "hashlib",
+    "json",
+    "typing"
+   ],
+   "api": [
+    "ReceiptChain",
+    "__init__",
+    "__len__",
+    "_canon",
+    "emit",
+    "head",
+    "sha3_hex",
+    "verify"
+   ]
+  },
+  {
+   "path": "szl-maskmod/torch-ext/szl_maskmod/_chain.py",
+   "repo": "szl-maskmod",
+   "sha": "df8e887bbabf6bb713c9983635186a48eabaf5013a33303e92d8998ef7663fc3",
+   "bytes": 1311,
+   "lines": 36,
+   "funcs": [
+    "__init__",
+    "__len__",
+    "_canon",
+    "_sha3",
+    "emit",
+    "head",
+    "verify"
+   ],
+   "classes": [
+    "ReceiptChain"
+   ],
+   "imports": [
+    "__future__",
+    "hashlib",
+    "json",
+    "typing"
+   ],
+   "api": [
+    "ReceiptChain",
+    "__init__",
+    "__len__",
+    "_canon",
+    "_sha3",
+    "emit",
+    "head",
+    "verify"
+   ]
+  }
+ ],
+ "lambda_gate.py": [
+  {
+   "path": "szl-atelier/kit/kernels/lambda_gate.py",
+   "repo": "szl-atelier",
+   "sha": "2e0d2a50abf5fb3dc027a5cb42d67b7246a1cb851b866ec1d790c4e5a711fb20",
+   "bytes": 4635,
+   "lines": 160,
+   "funcs": [
+    "__getattr__",
+    "_as_vec",
+    "check_a1",
+    "check_a2",
+    "check_a3",
+    "check_a4",
+    "check_a5",
+    "evaluate_lambda",
+    "lambda_gate",
+    "uniform_weights",
+    "wgm",
+    "yuyay_weights"
+   ],
+   "classes": [
+    "LambdaEval"
+   ],
+   "imports": [
+    "__future__",
+    "doctrine",
+    "numpy",
+    "typing"
+   ],
+   "api": [
+    "LambdaEval",
+    "__getattr__",
+    "_as_vec",
+    "check_a1",
+    "check_a2",
+    "check_a3",
+    "check_a4",
+    "check_a5",
+    "evaluate_lambda",
+    "lambda_gate",
+    "uniform_weights",
+    "wgm",
+    "yuyay_weights"
+   ]
+  },
+  {
+   "path": "szl-receipt/src/szl_receipt/lambda_gate.py",
+   "repo": "szl-receipt",
+   "sha": "42c5e5df4a2d37045b8ec47048f15fc11c0d4868fa1a72ca0d90f1c844832798",
+   "bytes": 6537,
+   "lines": 184,
+   "funcs": [
+    "_as_real",
+    "_display_real",
+    "check_theta",
+    "evaluate",
+    "lambda_score",
+    "to_dict"
+   ],
+   "classes": [
+    "LambdaGateError",
+    "LambdaVerdict"
+   ],
+   "imports": [
+    "__future__",
+    "dataclasses",
+    "math",
+    "typing"
+   ],
+   "api": [
+    "LambdaGateError",
+    "LambdaVerdict",
+    "_as_real",
+    "_display_real",
+    "check_theta",
+    "evaluate",
+    "lambda_score",
+    "to_dict"
+   ]
+  },
+  {
+   "path": "vsp-otel/collector/lambda_gate.py",
+   "repo": "vsp-otel",
+   "sha": "1e826faac2f1072cd268bf0866137dd47454c8f619b8b14733dc440adb40af00",
+   "bytes": 3936,
+   "lines": 106,
+   "funcs": [
+    "_clamp01",
+    "as_attributes",
+    "axes_from_attributes",
+    "compute_lambda",
+    "evaluate"
+   ],
+   "classes": [
+    "GateResult"
+   ],
+   "imports": [
+    "__future__",
+    "dataclasses",
+    "math",
+    "os",
+    "typing"
+   ],
+   "api": [
+    "GateResult",
+    "_clamp01",
+    "as_attributes",
+    "axes_from_attributes",
+    "compute_lambda",
+    "evaluate"
+   ]
+  },
+  {
+   "path": "a11oy/payloads/lambda_gate.py",
+   "repo": "a11oy",
+   "sha": "09f997b295be0c408d8b790d96be132b781779686c941f0992a1d6da05e14150",
+   "bytes": 7526,
+   "lines": 246,
+   "funcs": [
+    "clamp01",
+    "fail",
+    "gate",
+    "lambda_from_x",
+    "lambda_of",
+    "main",
+    "policy_check",
+    "route_kernel",
+    "score_axes"
+   ],
+   "classes": [],
+   "imports": [
+    "__future__",
+    "hashlib",
+    "json",
+    "math",
+    "re",
+    "sys",
+    "typing"
+   ],
+   "api": [
+    "clamp01",
+    "fail",
+    "gate",
+    "lambda_from_x",
+    "lambda_of",
+    "main",
+    "policy_check",
+    "route_kernel",
+    "score_axes"
+   ]
+  },
+  {
+   "path": "szl-frontier/python/szl_frontier/lambda_gate.py",
+   "repo": "szl-frontier",
+   "sha": "78af8d1172f28d2e51c1fdcaf6387e42d06156d1d105b663550c9c81a2a146da",
+   "bytes": 9387,
+   "lines": 279,
+   "funcs": [
+    "__post_init__",
+    "_classify_gap",
+    "_parse_iso",
+    "as_mapping",
+    "evaluate_lambda_gate",
+    "from_mapping",
+    "is_valid",
+    "scores_match",
+    "weighted_arithmetic_mean",
+    "weighted_geometric_mean"
+   ],
+   "classes": [
+    "AxisEvidence",
+    "GateError",
+    "GateResult"
+   ],
+   "imports": [
+    "__future__",
+    "dataclasses",
+    "datetime",
+    "domain",
+    "math",
+    "typing"
+   ],
+   "api": [
+    "AxisEvidence",
+    "GateError",
+    "GateResult",
+    "__post_init__",
+    "_classify_gap",
+    "_parse_iso",
+    "as_mapping",
+    "evaluate_lambda_gate",
+    "from_mapping",
+    "is_valid",
+    "scores_match",
+    "weighted_arithmetic_mean",
+    "weighted_geometric_mean"
+   ]
+  },
+  {
+   "path": "szl-khipu/szl_khipu/lambda_gate.py",
+   "repo": "szl-khipu",
+   "sha": "bf2dc93fac543e42b087f055f6dda7f7ce8e43cc8d60a66ac5a0a98eeed0d70a",
+   "bytes": 13099,
+   "lines": 363,
+   "funcs": [
+    "__getattr__",
+    "__init__",
+    "_as_vec",
+    "_check_tau",
+    "_default_weights",
+    "_elements",
+    "_evaluate",
+    "_from_log",
+    "_gate_verdict",
+    "_is_finite",
+    "_is_real",
+    "_log_lambda",
+    "_v1_vectors",
+    "check_a1",
+    "check_a2",
+    "check_a3",
+    "check_a4",
+    "check_a5",
+    "evaluate_lambda",
+    "lambda_gate",
+    "uniform_weights",
+    "wgm",
+    "yuyay_weights"
+   ],
+   "classes": [
+    "LambdaEval",
+    "_V1Rejected"
+   ],
+   "imports": [
+    "__future__",
+    "collections",
+    "doctrine",
+    "math",
+    "numbers",
+    "numpy",
+    "typing"
+   ],
+   "api": [
+    "LambdaEval",
+    "_V1Rejected",
+    "__getattr__",
+    "__init__",
+    "_as_vec",
+    "_check_tau",
+    "_default_weights",
+    "_elements",
+    "_evaluate",
+    "_from_log",
+    "_gate_verdict",
+    "_is_finite",
+    "_is_real",
+    "_log_lambda",
+    "_v1_vectors",
+    "check_a1",
+    "check_a2",
+    "check_a3",
+    "check_a4",
+    "check_a5",
+    "evaluate_lambda",
+    "lambda_gate",
+    "uniform_weights",
+    "wgm",
+    "yuyay_weights"
+   ]
+  },
+  {
+   "path": "platform/services/verticals/szl_pinn/_vendor/innovations/lambda_gate.py",
+   "repo": "platform",
+   "sha": "52c32ad4c13a4cdc8bd8e9910c06ef92fb45f1b7e482e8fccd7099526455869b",
+   "bytes": 6199,
+   "lines": 140,
+   "funcs": [
+    "gate_solve",
+    "to_dict"
+   ],
+   "classes": [
+    "GateVerdict"
+   ],
+   "imports": [
+    "__future__",
+    "dataclasses",
+    "typing"
+   ],
+   "api": [
+    "GateVerdict",
+    "gate_solve",
+    "to_dict"
+   ]
+  }
+ ]
+}

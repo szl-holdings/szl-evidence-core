@@ -1,0 +1,889 @@
+{
+ "status": "BLOCKED",
+ "n": 35,
+ "hashing_files": 32,
+ "algorithm": {
+  "sha256": 22,
+  "both": 1,
+  "sha3_256": 12
+ },
+ "allow_nan_hash_calls": {
+  "strict": 11,
+  "mixed": 0,
+  "none": 21
+ },
+ "no_separators": [
+  "szl-gov/tools/receipt.py"
+ ],
+ "ensure_ascii_false": [
+  "a11oy/organs/amaru/amaru/receipts.py",
+  "a11oy/organs/amaru/sidecar/src/amaru/receipts.py",
+  "ayllu/ayllu/receipts.py",
+  "szl-quant-bench/src/szl_quant_bench/receipts.py",
+  "szl-retrieval-bench/src/szl_retrieval_bench/receipts.py",
+  "vertical-services/frontier_fabric/receipts.py",
+  "szl-nemo/szl_nemo/receipt.py"
+ ],
+ "unclassified_files": [
+  "szl-frontier/python/szl_frontier/receipts.py",
+  "szl-mesh/src/szl_mesh/receipts.py",
+  "szl-blocked/build/torch-universal/szl_blocked/_chain.py",
+  "szl-blocked/torch-ext/szl_blocked/_chain.py",
+  "szl-kernels/build/torch-universal/szl_kernels/_chain.py",
+  "szl-kernels/corpus/kernels/build/torch-universal/szl_kernels/_chain.py",
+  "szl-kernels/torch-ext/szl_kernels/_chain.py",
+  "szl-provctl/build/torch-universal/szl_provctl/_chain.py",
+  "szl-provctl/torch-ext/szl_provctl/_chain.py",
+  "szl-gov/tools/receipt.py"
+ ],
+ "genesis_64_zeros": 20,
+ "rows": [
+  {
+   "path": "a11oy/organs/amaru/amaru/receipts.py",
+   "repo": "a11oy",
+   "calls": 1,
+   "hash_calls": 1,
+   "unclassified": 0,
+   "hash_separators_all": true,
+   "hash_allow_nan": "none",
+   "hash_ensure_ascii_false": true,
+   "algorithm": "sha256",
+   "genesis_64_zeros": true,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "def canonical_json(value: Any) -> str: return json.dumps(value, sort_keys=True, separators=(\",\", \":\"), ensure_ascii=False)",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": true
+    }
+   ]
+  },
+  {
+   "path": "a11oy/organs/amaru/sidecar/src/amaru/receipts.py",
+   "repo": "a11oy",
+   "calls": 1,
+   "hash_calls": 1,
+   "unclassified": 0,
+   "hash_separators_all": true,
+   "hash_allow_nan": "none",
+   "hash_ensure_ascii_false": true,
+   "algorithm": "sha256",
+   "genesis_64_zeros": true,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "def canonical_json(value: Any) -> str: return json.dumps(value, sort_keys=True, separators=(\",\", \":\"), ensure_ascii=False)",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": true
+    }
+   ]
+  },
+  {
+   "path": "a11oy/payloads/round-10-estate/a11oy/receipts.py",
+   "repo": "a11oy",
+   "calls": 1,
+   "hash_calls": 1,
+   "unclassified": 0,
+   "hash_separators_all": true,
+   "hash_allow_nan": "none",
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha256",
+   "genesis_64_zeros": false,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "def canonical(obj) -> bytes: return json.dumps(obj, sort_keys=True, separators=(\",\", \":\")).encode(\"utf-8\")",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "ayllu/ayllu/receipts.py",
+   "repo": "ayllu",
+   "calls": 1,
+   "hash_calls": 1,
+   "unclassified": 0,
+   "hash_separators_all": true,
+   "hash_allow_nan": "none",
+   "hash_ensure_ascii_false": true,
+   "algorithm": "both",
+   "genesis_64_zeros": false,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "def canonical_dumps(value: Any) -> bytes: return json.dumps( value, sort_keys=True, separators=(\",\", \":\"), ensure_ascii=False ).encode(\"utf-8\")",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": true
+    }
+   ]
+  },
+  {
+   "path": "david-leads/app/receipts.py",
+   "repo": "david-leads",
+   "calls": 1,
+   "hash_calls": 1,
+   "unclassified": 0,
+   "hash_separators_all": true,
+   "hash_allow_nan": "none",
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha256",
+   "genesis_64_zeros": true,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "def _canon(obj: Any) -> bytes: return json.dumps(obj, sort_keys=True, separators=(\",\", \":\")).encode(\"utf-8\")",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "david-leads/backend/receipts.py",
+   "repo": "david-leads",
+   "calls": 1,
+   "hash_calls": 1,
+   "unclassified": 0,
+   "hash_separators_all": true,
+   "hash_allow_nan": "none",
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha256",
+   "genesis_64_zeros": true,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "def _canon(obj: Any) -> bytes: \"\"\"Canonical JSON: sorted keys, tight separators. Stable across processes.\"\"\" return json.dumps(obj, sort_keys=True, separators=(",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "szl-calibration/src/szl_calibration/receipts.py",
+   "repo": "szl-calibration",
+   "calls": 1,
+   "hash_calls": 1,
+   "unclassified": 0,
+   "hash_separators_all": true,
+   "hash_allow_nan": "strict",
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha256",
+   "genesis_64_zeros": false,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "def canonical_json(obj) -> str: return json.dumps(obj, sort_keys=True, separators=(\",\", \":\"), ensure_ascii=True, allow_nan=False)",
+     "separators": true,
+     "allow_nan_false": true,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "szl-energy-attest/src/energy_meter_proxy/receipts.py",
+   "repo": "szl-energy-attest",
+   "calls": 2,
+   "hash_calls": 1,
+   "unclassified": 0,
+   "hash_separators_all": true,
+   "hash_allow_nan": "none",
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha256",
+   "genesis_64_zeros": false,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "def canonical_json(body: Dict[str, Any]) -> str: \"\"\"Deterministic JSON used for hashing AND as the DSSE payload basis.\"\"\" return json.dumps(body, sort_keys=True",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    },
+    {
+     "role": "write",
+     "stmt": "def _append_durable(self, record: Dict[str, Any]) -> None: \"\"\"flock + write + fsync before returning: LOCAL durability only.\"\"\" line = json.dumps(record, sort_k",
+     "separators": false,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "szl-frontier/python/szl_frontier/receipts.py",
+   "repo": "szl-frontier",
+   "calls": 1,
+   "hash_calls": 0,
+   "unclassified": 1,
+   "hash_separators_all": null,
+   "hash_allow_nan": null,
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha256",
+   "genesis_64_zeros": false,
+   "detail": [
+    {
+     "role": "unclassified",
+     "stmt": "\"\"\"Return one stable UTF-8 representation suitable for hashing/signing.\"\"\" return json.dumps( value, sort_keys=True, separators=(\",\", \":\"), ensure_ascii=False, ",
+     "separators": true,
+     "allow_nan_false": true,
+     "ensure_ascii_false": true
+    }
+   ]
+  },
+  {
+   "path": "szl-mesh/src/szl_mesh/receipts.py",
+   "repo": "szl-mesh",
+   "calls": 1,
+   "hash_calls": 0,
+   "unclassified": 1,
+   "hash_separators_all": null,
+   "hash_allow_nan": null,
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha256",
+   "genesis_64_zeros": false,
+   "detail": [
+    {
+     "role": "unclassified",
+     "stmt": "raise ValueError(\"statement node_id does not match signing public key\") stmt_json = json.dumps(stmt, separators=(\",\", \":\"), sort_keys=True).encode(\"utf-8\") payl",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "szl-platform/packages/kids-sim/src/kids_sim/receipts.py",
+   "repo": "szl-platform",
+   "calls": 1,
+   "hash_calls": 1,
+   "unclassified": 0,
+   "hash_separators_all": true,
+   "hash_allow_nan": "none",
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha3_256",
+   "genesis_64_zeros": false,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "def canonical_event_bytes(event: dict[str, Any]) -> bytes: \"\"\"Deterministic serialization: sorted keys, compact separators, UTF-8.\"\"\" return json.dumps(event, s",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "szl-quant-bench/src/szl_quant_bench/receipts.py",
+   "repo": "szl-quant-bench",
+   "calls": 1,
+   "hash_calls": 1,
+   "unclassified": 0,
+   "hash_separators_all": true,
+   "hash_allow_nan": "strict",
+   "hash_ensure_ascii_false": true,
+   "algorithm": "sha256",
+   "genesis_64_zeros": true,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "def _canonical(obj): return json.dumps(obj, sort_keys=True, separators=(\",\", \":\"), ensure_ascii=False, allow_nan=False)",
+     "separators": true,
+     "allow_nan_false": true,
+     "ensure_ascii_false": true
+    }
+   ]
+  },
+  {
+   "path": "szl-retrieval-bench/src/szl_retrieval_bench/receipts.py",
+   "repo": "szl-retrieval-bench",
+   "calls": 1,
+   "hash_calls": 1,
+   "unclassified": 0,
+   "hash_separators_all": true,
+   "hash_allow_nan": "none",
+   "hash_ensure_ascii_false": true,
+   "algorithm": "sha256",
+   "genesis_64_zeros": true,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "def _canonical(obj): return json.dumps(obj, sort_keys=True, separators=(\",\", \":\"), ensure_ascii=False)",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": true
+    }
+   ]
+  },
+  {
+   "path": "szl-router/szl_router/receipts.py",
+   "repo": "szl-router",
+   "calls": 1,
+   "hash_calls": 1,
+   "unclassified": 0,
+   "hash_separators_all": true,
+   "hash_allow_nan": "none",
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha256",
+   "genesis_64_zeros": false,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "\"\"\"Stable SHA-256 over the request shape (model + messages), so a receipt binds to exactly what was asked without storing the prompt itself.\"\"\" blob = json.dump",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "szl-typesafe-triage/triage/receipts.py",
+   "repo": "szl-typesafe-triage",
+   "calls": 1,
+   "hash_calls": 1,
+   "unclassified": 0,
+   "hash_separators_all": true,
+   "hash_allow_nan": "none",
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha256",
+   "genesis_64_zeros": true,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "def canonical(value): return json.dumps(value, sort_keys=True, separators=(\",\", \":\")).encode(\"utf-8\")",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "vertical-services/frontier_fabric/receipts.py",
+   "repo": "vertical-services",
+   "calls": 1,
+   "hash_calls": 1,
+   "unclassified": 0,
+   "hash_separators_all": true,
+   "hash_allow_nan": "strict",
+   "hash_ensure_ascii_false": true,
+   "algorithm": "sha256",
+   "genesis_64_zeros": true,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "def canonical_json(value: Any) -> str: return json.dumps( _normalize(value), ensure_ascii=False, allow_nan=False, sort_keys=True, separators=(\",\", \":\"), )",
+     "separators": true,
+     "allow_nan_false": true,
+     "ensure_ascii_false": true
+    }
+   ]
+  },
+  {
+   "path": "vertical-services/services/finance/receipts.py",
+   "repo": "vertical-services",
+   "calls": 1,
+   "hash_calls": 1,
+   "unclassified": 0,
+   "hash_separators_all": true,
+   "hash_allow_nan": "none",
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha256",
+   "genesis_64_zeros": false,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "def _canon(obj: Any) -> bytes: return json.dumps(obj, sort_keys=True, separators=(\",\", \":\")).encode(\"utf-8\")",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "YARQA-ATTN/torch-ext/yarqa_attn/_chain.py",
+   "repo": "YARQA-ATTN",
+   "calls": 1,
+   "hash_calls": 1,
+   "unclassified": 0,
+   "hash_separators_all": true,
+   "hash_allow_nan": "none",
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha3_256",
+   "genesis_64_zeros": true,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "def _canon(obj: Any) -> bytes: return json.dumps(obj, sort_keys=True, separators=(\",\", \":\")).encode(\"utf-8\")",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "szl-block-kv/torch-ext/szl_block_kv/_chain.py",
+   "repo": "szl-block-kv",
+   "calls": 1,
+   "hash_calls": 1,
+   "unclassified": 0,
+   "hash_separators_all": true,
+   "hash_allow_nan": "none",
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha3_256",
+   "genesis_64_zeros": true,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "GENESIS = \"0\" * 64 def _canon(obj: Any) -> bytes: return json.dumps(obj, sort_keys=True, separators=(\",\", \":\")).encode(\"utf-8\") def _sha3(body: bytes) -> str:",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "szl-blocked/build/torch-universal/szl_blocked/_chain.py",
+   "repo": "szl-blocked",
+   "calls": 2,
+   "hash_calls": 1,
+   "unclassified": 1,
+   "hash_separators_all": true,
+   "hash_allow_nan": "strict",
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha3_256",
+   "genesis_64_zeros": true,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "@staticmethod def _digest_body(body: Dict[str, Any]) -> str: raw = json.dumps( body, sort_keys=True, separators=(\",\", \":\"), allow_nan=False ).encode(\"utf-8\") re",
+     "separators": true,
+     "allow_nan_false": true,
+     "ensure_ascii_false": false
+    },
+    {
+     "role": "unclassified",
+     "stmt": "def to_json(self) -> str: with self._lock: return json.dumps( self._records, sort_keys=True, separators=(\",\", \":\") ) @staticmethod",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "szl-blocked/torch-ext/szl_blocked/_chain.py",
+   "repo": "szl-blocked",
+   "calls": 2,
+   "hash_calls": 1,
+   "unclassified": 1,
+   "hash_separators_all": true,
+   "hash_allow_nan": "strict",
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha3_256",
+   "genesis_64_zeros": true,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "@staticmethod def _digest_body(body: Dict[str, Any]) -> str: raw = json.dumps( body, sort_keys=True, separators=(\",\", \":\"), allow_nan=False ).encode(\"utf-8\") re",
+     "separators": true,
+     "allow_nan_false": true,
+     "ensure_ascii_false": false
+    },
+    {
+     "role": "unclassified",
+     "stmt": "def to_json(self) -> str: with self._lock: return json.dumps( self._records, sort_keys=True, separators=(\",\", \":\") ) @staticmethod",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "szl-kernels/build/torch-universal/szl_kernels/_chain.py",
+   "repo": "szl-kernels",
+   "calls": 3,
+   "hash_calls": 1,
+   "unclassified": 1,
+   "hash_separators_all": true,
+   "hash_allow_nan": "strict",
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha3_256",
+   "genesis_64_zeros": true,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "@staticmethod def _digest_body(body: Dict[str, Any]) -> str: raw = json.dumps( body, sort_keys=True, separators=(\",\", \":\"), allow_nan=False ).encode(\"utf-8\") re",
+     "separators": true,
+     "allow_nan_false": true,
+     "ensure_ascii_false": false
+    },
+    {
+     "role": "roundtrip",
+     "stmt": "if not isinstance(attrs, dict): raise TypeError(\"receipt attrs must be a JSON object\") return json.loads(json.dumps(attrs, sort_keys=True, allow_nan=False)) def",
+     "separators": false,
+     "allow_nan_false": true,
+     "ensure_ascii_false": false
+    },
+    {
+     "role": "unclassified",
+     "stmt": "\"\"\" with self._lock: return json.dumps(self._records, sort_keys=True, separators=(\",\", \":\"), allow_nan=False) @staticmethod",
+     "separators": true,
+     "allow_nan_false": true,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "szl-kernels/corpus/kernels/build/torch-universal/szl_kernels/_chain.py",
+   "repo": "szl-kernels",
+   "calls": 2,
+   "hash_calls": 1,
+   "unclassified": 1,
+   "hash_separators_all": true,
+   "hash_allow_nan": "strict",
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha3_256",
+   "genesis_64_zeros": true,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "@staticmethod def _digest_body(body: Dict[str, Any]) -> str: raw = json.dumps( body, sort_keys=True, separators=(\",\", \":\"), allow_nan=False ).encode(\"utf-8\") re",
+     "separators": true,
+     "allow_nan_false": true,
+     "ensure_ascii_false": false
+    },
+    {
+     "role": "unclassified",
+     "stmt": "\"\"\" with self._lock: return json.dumps(self._records, sort_keys=True, separators=(\",\", \":\")) @staticmethod",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "szl-kernels/torch-ext/szl_kernels/_chain.py",
+   "repo": "szl-kernels",
+   "calls": 3,
+   "hash_calls": 1,
+   "unclassified": 1,
+   "hash_separators_all": true,
+   "hash_allow_nan": "strict",
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha3_256",
+   "genesis_64_zeros": true,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "@staticmethod def _digest_body(body: Dict[str, Any]) -> str: raw = json.dumps( body, sort_keys=True, separators=(\",\", \":\"), allow_nan=False ).encode(\"utf-8\") re",
+     "separators": true,
+     "allow_nan_false": true,
+     "ensure_ascii_false": false
+    },
+    {
+     "role": "roundtrip",
+     "stmt": "if not isinstance(attrs, dict): raise TypeError(\"receipt attrs must be a JSON object\") return json.loads(json.dumps(attrs, sort_keys=True, allow_nan=False)) def",
+     "separators": false,
+     "allow_nan_false": true,
+     "ensure_ascii_false": false
+    },
+    {
+     "role": "unclassified",
+     "stmt": "\"\"\" with self._lock: return json.dumps(self._records, sort_keys=True, separators=(\",\", \":\"), allow_nan=False) @staticmethod",
+     "separators": true,
+     "allow_nan_false": true,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "szl-maskmod/torch-ext/szl_maskmod/_chain.py",
+   "repo": "szl-maskmod",
+   "calls": 1,
+   "hash_calls": 1,
+   "unclassified": 0,
+   "hash_separators_all": true,
+   "hash_allow_nan": "none",
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha3_256",
+   "genesis_64_zeros": true,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "GENESIS = \"0\" * 64 def _canon(obj: Any) -> bytes: return json.dumps(obj, sort_keys=True, separators=(\",\", \":\")).encode(\"utf-8\") def _sha3(body: bytes) -> str:",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "szl-provctl/build/torch-universal/szl_provctl/_chain.py",
+   "repo": "szl-provctl",
+   "calls": 2,
+   "hash_calls": 1,
+   "unclassified": 1,
+   "hash_separators_all": true,
+   "hash_allow_nan": "strict",
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha3_256",
+   "genesis_64_zeros": true,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "@staticmethod def _digest_body(body: Dict[str, Any]) -> str: raw = json.dumps( body, sort_keys=True, separators=(\",\", \":\"), allow_nan=False ).encode(\"utf-8\") re",
+     "separators": true,
+     "allow_nan_false": true,
+     "ensure_ascii_false": false
+    },
+    {
+     "role": "unclassified",
+     "stmt": "def to_json(self) -> str: with self._lock: return json.dumps( self._records, sort_keys=True, separators=(\",\", \":\") ) @staticmethod",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "szl-provctl/torch-ext/szl_provctl/_chain.py",
+   "repo": "szl-provctl",
+   "calls": 2,
+   "hash_calls": 1,
+   "unclassified": 1,
+   "hash_separators_all": true,
+   "hash_allow_nan": "strict",
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha3_256",
+   "genesis_64_zeros": true,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "@staticmethod def _digest_body(body: Dict[str, Any]) -> str: raw = json.dumps( body, sort_keys=True, separators=(\",\", \":\"), allow_nan=False ).encode(\"utf-8\") re",
+     "separators": true,
+     "allow_nan_false": true,
+     "ensure_ascii_false": false
+    },
+    {
+     "role": "unclassified",
+     "stmt": "def to_json(self) -> str: with self._lock: return json.dumps( self._records, sort_keys=True, separators=(\",\", \":\") ) @staticmethod",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "szl-receipt-attn/torch-ext/szl_receipt_attn/_chain.py",
+   "repo": "szl-receipt-attn",
+   "calls": 1,
+   "hash_calls": 1,
+   "unclassified": 0,
+   "hash_separators_all": true,
+   "hash_allow_nan": "none",
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha3_256",
+   "genesis_64_zeros": true,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "def _canon(obj: Any) -> bytes: return json.dumps(obj, sort_keys=True, separators=(\",\", \":\")).encode(\"utf-8\")",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "platform/payload_v11/lib/receipt.py",
+   "repo": "platform",
+   "calls": 1,
+   "hash_calls": 1,
+   "unclassified": 0,
+   "hash_separators_all": true,
+   "hash_allow_nan": "none",
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha256",
+   "genesis_64_zeros": false,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "def _canonical_json(obj) -> bytes: return json.dumps(obj, sort_keys=True, separators=(\",\", \":\")).encode(\"utf-8\")",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "platform/services/verticals/szl_mechanics/receipt.py",
+   "repo": "platform",
+   "calls": 1,
+   "hash_calls": 1,
+   "unclassified": 0,
+   "hash_separators_all": true,
+   "hash_allow_nan": "none",
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha256",
+   "genesis_64_zeros": false,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "def _canon_bytes(obj: Any) -> bytes: return json.dumps(obj, sort_keys=True, separators=(\",\", \":\"), default=str).encode()",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "platform/services/verticals/szl_pinn/receipt.py",
+   "repo": "platform",
+   "calls": 1,
+   "hash_calls": 1,
+   "unclassified": 0,
+   "hash_separators_all": true,
+   "hash_allow_nan": "none",
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha256",
+   "genesis_64_zeros": false,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "def _canon_bytes(obj: Any) -> bytes: return json.dumps(obj, sort_keys=True, separators=(\",\", \":\"), default=str).encode()",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "szl-gov/tools/receipt.py",
+   "repo": "szl-gov",
+   "calls": 2,
+   "hash_calls": 1,
+   "unclassified": 1,
+   "hash_separators_all": false,
+   "hash_allow_nan": "none",
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha256",
+   "genesis_64_zeros": false,
+   "detail": [
+    {
+     "role": "unclassified",
+     "stmt": "def dsse_sign(payload: dict, sk: Ed25519PrivateKey, ptype: str = MEDIA_TYPE) -> dict: body = json.dumps(payload, sort_keys=True, separators=(\",\", \":\")).encode()",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    },
+    {
+     "role": "hash",
+     "stmt": "\"name\": f\"szl-audit/{action.scope}\", \"digest\": {\"sha256\": hashlib.sha256( json.dumps(action.to_dict(), sort_keys=True).encode() ).hexdigest()}, }],",
+     "separators": false,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "szl-nemo/szl_nemo/receipt.py",
+   "repo": "szl-nemo",
+   "calls": 1,
+   "hash_calls": 1,
+   "unclassified": 0,
+   "hash_separators_all": true,
+   "hash_allow_nan": "none",
+   "hash_ensure_ascii_false": true,
+   "algorithm": "sha256",
+   "genesis_64_zeros": true,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "def _sha256_canonical(payload: Dict[str, Any]) -> str: blob = json.dumps( payload, sort_keys=True, separators=(\",\", \":\"), ensure_ascii=False ).encode(\"utf-8\") r",
+     "separators": true,
+     "allow_nan_false": false,
+     "ensure_ascii_false": true
+    }
+   ]
+  },
+  {
+   "path": "szl-org-health/census/receipt.py",
+   "repo": "szl-org-health",
+   "calls": 4,
+   "hash_calls": 1,
+   "unclassified": 0,
+   "hash_separators_all": true,
+   "hash_allow_nan": "strict",
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha256",
+   "genesis_64_zeros": false,
+   "detail": [
+    {
+     "role": "hash",
+     "stmt": "if begin is None or end is None or not started <= begin <= end <= completed: return False encoded = (json.dumps(sources, separators=(\",\", \":\"), sort_keys=True, ",
+     "separators": true,
+     "allow_nan_false": true,
+     "ensure_ascii_false": false
+    },
+    {
+     "role": "pretty",
+     "stmt": "receipt[\"status\"] = \"FAIL_CLOSED\" serialized = json.dumps(receipt, indent=2, sort_keys=True) + \"\\n\" try: receipt_path.write_text(serialized, encoding=\"utf-8\")",
+     "separators": false,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    },
+    {
+     "role": "pretty",
+     "stmt": "try: receipt_path.write_text( json.dumps(receipt, indent=2, sort_keys=True) + \"\\n\", encoding=\"utf-8\", )",
+     "separators": false,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    },
+    {
+     "role": "pretty",
+     "stmt": "pass print(json.dumps(receipt, indent=2, sort_keys=True)) return 0 if receipt[\"status\"] == \"PASS\" else 1",
+     "separators": false,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    }
+   ]
+  },
+  {
+   "path": "szl-platform/packages/szl-iso42001/src/szl_iso42001/receipt.py",
+   "repo": "szl-platform",
+   "calls": 3,
+   "hash_calls": 0,
+   "unclassified": 0,
+   "hash_separators_all": null,
+   "hash_allow_nan": null,
+   "hash_ensure_ascii_false": false,
+   "algorithm": "sha256",
+   "genesis_64_zeros": false,
+   "detail": [
+    {
+     "role": "pretty",
+     "stmt": "path = out / UNSIGNED_RECEIPT_NAME path.write_text( json.dumps(body, indent=2, sort_keys=True) + \"\\n\", encoding=\"utf-8\" ) return {",
+     "separators": false,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    },
+    {
+     "role": "pretty",
+     "stmt": ") path.write_text( json.dumps(payload, indent=2, sort_keys=True) + \"\\n\", encoding=\"utf-8\", )",
+     "separators": false,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    },
+    {
+     "role": "pretty",
+     "stmt": "data = json.loads(path.read_text(encoding=\"utf-8\")) data[\"note\"] += note_extra path.write_text(json.dumps(data, indent=2, sort_keys=True) + \"\\n\", encoding=\"utf-",
+     "separators": false,
+     "allow_nan_false": false,
+     "ensure_ascii_false": false
+    }
+   ]
+  }
+ ]
+}
