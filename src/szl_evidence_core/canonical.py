@@ -55,6 +55,7 @@ __all__ = [
     "CANON_RECEIPT",
     "CANON_LAMBDA_V1",
     "CANON_UTF8",
+    "CANON_JCS",
     "PROFILES",
     "ALGORITHMS",
     "DEFAULT_ALGORITHM",
@@ -81,11 +82,17 @@ CANON_RECEIPT: Final[str] = "szl.canon/v1"
 CANON_LAMBDA_V1: Final[str] = "szl.lambda/v1"
 CANON_UTF8: Final[str] = CANON_LAMBDA_V1
 
+#: RFC 8785 JSON Canonicalization Scheme. The only profile with an RFC number
+#: and independent implementations in other languages; the one a verifier that
+#: has never seen SZL code can implement from a document. See ``jcs.py``.
+CANON_JCS: Final[str] = "rfc8785"
+
 #: The two profiles the estate actually uses. Both sort keys, use compact
 #: separators and refuse NaN/Infinity; they differ only in ASCII escaping.
 PROFILES: Final[dict[str, dict[str, Any]]] = {
     CANON_RECEIPT: {"ensure_ascii": True},
     CANON_LAMBDA_V1: {"ensure_ascii": False},
+    CANON_JCS: {"rfc8785": True},
 }
 
 #: Supported digest algorithms. The name is recorded alongside every digest so
@@ -175,6 +182,9 @@ def canonical_json(value: Any, *, profile: str = CANON_RECEIPT,
     is required for byte-identical compatibility with it.
     """
     options = _profile(profile)
+    if options.get("rfc8785"):
+        from .jcs import jcs_dumps  # RFC 8785 has its own number and key-order rules
+        return jcs_dumps(value)
     if check:
         assert_json_safe(value)
     return json.dumps(

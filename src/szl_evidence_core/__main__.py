@@ -211,6 +211,59 @@ def selftest() -> str:
     ref = L.check_conformance(L.lambda_v1, L.gate_v1, name="reference", bitwise=True)
     f.check("lambda.reference_bitwise_60_of_60", ref.conformant and ref.vectors == 60, ref.summary())
 
+    # -- jcs (RFC 8785) ---------------------------------------------------- #
+    from . import jcs as J
+    f.check("jcs.number_1e-7", J.es_number(1e-7) == "1e-7")
+    f.check("jcs.number_1e16_plain", J.es_number(1e16) == "10000000000000000")
+    f.check("jcs.number_1e21_exp", J.es_number(1e21) == "1e+21")
+    f.check("jcs.number_1e-5_plain", J.es_number(1e-5) == "0.00001")
+    f.check("jcs.number_neg_zero_is_0", J.es_number(-0.0) == "0")
+    f.check("jcs.number_0.1+0.2", J.es_number(0.1 + 0.2) == "0.30000000000000004")
+    f.check("jcs.number_max", J.es_number(1.7976931348623157e308) == "1.7976931348623157e+308")
+    f.check("jcs.number_min_subnormal", J.es_number(5e-324) == "5e-324")
+    f.check("jcs.utf16_key_order", J.jcs_dumps({"\ue000": 1, "\U00010000": 2}) == '{"\U00010000":2,"\ue000":1}')
+    f.check("jcs.escapes", J.jcs_dumps("\b\t\n\f\r\"\\\x01\x1f\x7f") == '"\\b\\t\\n\\f\\r\\"\\\\\\u0001\\u001f\x7f"')
+    f.check("jcs.rfc8785_example",
+            J.jcs_dumps({"numbers": [333333333.33333329, 1e30, 4.5, 2e-3, 1e-7], "string": "\u20ac$\x0f\nA'B\"\\\\\"/", "literals": [None, True, False]})
+            == '{"literals":[null,true,false],"numbers":[333333333.3333333,1e+30,4.5,0.002,1e-7],"string":"\u20ac$\\u000f\\nA\'B\\"\\\\\\\\\\"/"}')
+    f.raises("jcs.rejects_nan", J.JCSError, lambda: J.jcs_dumps(float("nan")))
+    f.raises("jcs.rejects_big_int", J.JCSError, lambda: J.jcs_dumps(2 ** 53 + 1))
+    f.raises("jcs.rejects_lone_surrogate", J.JCSError, lambda: J.jcs_dumps("\ud800"))
+    f.raises("jcs.rejects_nonstr_key", J.JCSError, lambda: J.jcs_dumps({1: 2}))
+    f.check("jcs.profile_routes", C.canonical_json({"a": 1e-7}, profile=C.CANON_JCS) == '{"a":1e-7}')
+    f.check("jcs.differs_from_python_profile", C.canonical_json({"a": 1e-7}) == '{"a":1e-07}')
+
+    # -- merkle (RFC 9162) ------------------------------------------------- #
+    from . import merkle as M
+    leaves = [bytes.fromhex(h) for h in ["", "00", "10", "2021", "3031", "40414243", "5051525354555657", "606162636465666768696a6b6c6d6e6f"]]
+    roots = ["e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d",
+             "fac54203e7cc696cf0dfcb42c92a1d9dbaf70ad9e621f4bd8d98662f00e3c125", "aeb6bcfe274b70a14fb067a5e5578264db0fa9b51af5e0ba159158f329e06e77",
+             "d37ee418976dd95753c1c73862b9398fa2a2cf9b4ff0fdfe8b30cd95209614b7", "4e3bbb1f7b478dcfe71fb631631519a3bca12c9aefca1612bfce4c13a86264d4",
+             "76e67dadbcdf1e10e1b74ddc608abd2f98dfb16fbce75277b5232a127f2087ef", "ddb89be403809e325750d3d263cd78929c2942b7942a34b77e122c9594a74c8c",
+             "5dc9da79a70659a9ad559cb701ded9a2ab9d823aad2f4960cfe370eff4604328"]
+    f.check("merkle.roots_0_to_8_transparency_dev_vectors", all(M.mth(leaves[:n]).hex() == roots[n] for n in range(9)))
+    f.check("merkle.inclusion_all_36_pairs", all(M.verify_inclusion(leaves[i], i, n, M.inclusion_proof(i, leaves[:n]), bytes.fromhex(roots[n])) for n in range(1, 9) for i in range(n)))
+    f.check("merkle.inclusion_rejects_wrong_leaf", not M.verify_inclusion(b"x", 0, 8, M.inclusion_proof(0, leaves), bytes.fromhex(roots[8])))
+    f.check("merkle.inclusion_rejects_wrong_index", not M.verify_inclusion(leaves[0], 1, 8, M.inclusion_proof(0, leaves), bytes.fromhex(roots[8])))
+    f.check("merkle.consistency_all_36_pairs", all(M.verify_consistency(m, n, M.consistency_proof(m, leaves[:n]), bytes.fromhex(roots[m]), bytes.fromhex(roots[n])) for n in range(1, 9) for m in range(1, n + 1)))
+    f.check("merkle.consistency_rejects_rewrite", not M.verify_consistency(3, 8, M.consistency_proof(3, leaves), bytes.fromhex(roots[2]), bytes.fromhex(roots[8])))
+    f.check("merkle.leaf_node_domain_separation", M.leaf_hash(b"ab") != M.node_hash(b"a", b"b") and M.leaf_hash(b"") != M.mth([]))
+    f.raises("merkle.proof_index_out_of_range", M.MerkleError, lambda: M.inclusion_proof(3, leaves[:3]))
+    # chain integration: v2 checkpoint + proof verifiable without the ledger
+    uc = CH.UnifiedReceiptChain()
+    for i in range(5):
+        uc.emit("k", "op", {"i": i})
+    cp2 = uc.checkpoint_v2()
+    f.check("uchain.checkpoint_v2_schema", cp2["schema"] == CH.CHECKPOINT_V2_SCHEMA and cp2["tree_size"] == 5 and cp2["head"] == uc.head() and cp2["hash"] == "sha3_256")
+    f.check("uchain.checkpoint_v2_root_is_mth_of_digests", cp2["root_hash"] == M.mth([bytes.fromhex(r["digest"]) for r in uc.tail(5)], "sha3_256").hex())
+    pf = uc.inclusion_proof(2)
+    f.check("uchain.inclusion_proof_verifies_against_v2", CH.UnifiedReceiptChain.verify_inclusion_proof(pf, cp2))
+    pf_bad = dict(pf, seq=3)
+    f.check("uchain.inclusion_proof_wrong_seq_rejected", not CH.UnifiedReceiptChain.verify_inclusion_proof(pf_bad, cp2))
+    f.check("uchain.inclusion_proof_v1_checkpoint_rejected", not CH.UnifiedReceiptChain.verify_inclusion_proof(pf, uc.checkpoint()))
+    f.check("uchain.v1_checkpoint_unchanged", uc.checkpoint() == {"schema": CH.CHECKPOINT_SCHEMA, "depth": 5, "head": uc.head()})
+    f.check("uchain.v2_did_not_change_hashed_bytes", CH.UnifiedReceiptChain.verify_json(uc.to_json()) == (True, 5, -1))
+
     return f.report("szl_evidence_core selftest")
 
 

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "szl-evidence-core"
-version = "0.1.0"
+version = "0.2.0"
 description = "Canonical JSON, algorithm-declared digests, hash-chained receipt ledgers and the szl.lambda/v1 reference: the primitives under every SZL receipt, extracted once."
 readme = "README.md"
 license = { text = "Apache-2.0" }

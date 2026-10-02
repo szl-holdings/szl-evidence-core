@@ -81,6 +81,7 @@ __all__ = [
     "GENESIS",
     "KERNEL_ALGORITHM",
     "CHECKPOINT_SCHEMA",
+    "CHECKPOINT_V2_SCHEMA",
     "ENVELOPE_SCHEMA",
     "ChainVerification",
     "ReceiptChain",
@@ -95,6 +96,7 @@ __all__ = [
 KERNEL_ALGORITHM = "sha3_256"
 
 CHECKPOINT_SCHEMA = "szl.receipt-checkpoint/v1"
+CHECKPOINT_V2_SCHEMA = "szl.receipt-checkpoint/v2"  # RFC 9162 Merkle tree head over record digests
 ENVELOPE_SCHEMA = "szl.receipt-envelope/v1"
 
 # Default rounding precision for tensor fingerprints. MUST match
@@ -258,6 +260,68 @@ class UnifiedReceiptChain:
                 "depth": len(self._records),
                 "head": self._records[-1]["digest"] if self._records else GENESIS,
             }
+
+    # -- Merkle commitments (additive; the hashed record body is untouched) --
+    def _leaves(self) -> List[bytes]:
+        return [bytes.fromhex(r["digest"]) for r in self._records]
+
+    def checkpoint_v2(self) -> Dict[str, Any]:
+        """RFC 9162 tree head over the record digests, plus the v1 fields.
+
+        Unlike v1's ``{depth, head}``, a tree head lets a third party verify
+        that one receipt is in the ledger from an O(log n) inclusion proof, and
+        lets two checkpoints be checked for append-only consistency. Same lock,
+        same consistency precondition as v1. Still unsigned: a root is a
+        commitment, and who vouches for it is out of band.
+        """
+        from .merkle import mth
+
+        with self._lock:
+            if not self._verify_records(self._records, algorithm=self._algorithm)[0]:
+                raise ValueError("cannot checkpoint an inconsistent chain")
+            return {
+                "schema": CHECKPOINT_V2_SCHEMA,
+                "depth": len(self._records),
+                "head": self._records[-1]["digest"] if self._records else GENESIS,
+                "tree_size": len(self._records),
+                "root_hash": mth(self._leaves(), self._algorithm).hex(),
+                "hash": self._algorithm,
+                "leaf": "record digest bytes; RFC 9162 0x00/0x01 domain separation",
+            }
+
+    def inclusion_proof(self, seq: int) -> Dict[str, Any]:
+        """Proof that record ``seq`` is in the ledger at the current tree size."""
+        from .merkle import inclusion_proof as _proof
+
+        with self._lock:
+            leaves = self._leaves()
+            if not 0 <= seq < len(leaves):
+                raise ValueError(f"seq {seq} out of range for {len(leaves)} records")
+            return {
+                "schema": "szl.receipt-inclusion/v1",
+                "seq": seq,
+                "tree_size": len(leaves),
+                "leaf": leaves[seq].hex(),
+                "proof": [p.hex() for p in _proof(seq, leaves, self._algorithm)],
+                "hash": self._algorithm,
+            }
+
+    @staticmethod
+    def verify_inclusion_proof(proof: Dict[str, Any], checkpoint: Dict[str, Any]) -> bool:
+        """Check an inclusion proof against a v2 checkpoint. No ledger needed."""
+        from .merkle import verify_inclusion
+
+        try:
+            if checkpoint.get("schema") != CHECKPOINT_V2_SCHEMA:
+                return False
+            if proof.get("tree_size") != checkpoint.get("tree_size") or proof.get("hash") != checkpoint.get("hash"):
+                return False
+            return verify_inclusion(
+                bytes.fromhex(proof["leaf"]), int(proof["seq"]), int(proof["tree_size"]),
+                [bytes.fromhex(p) for p in proof["proof"]],
+                bytes.fromhex(checkpoint["root_hash"]), checkpoint["hash"])
+        except (KeyError, TypeError, ValueError):
+            return False
 
     # -- convenience emitters that enforce the honesty schema per kernel ----
     def emit_norm(self, op: str, x: "Any", out: "Any", eps: float) -> Dict[str, Any]:

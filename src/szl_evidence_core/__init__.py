@@ -17,6 +17,7 @@ Standard library only. No network, no signing, no claims beyond integrity.
 
 from .canonical import (  # noqa: F401
     ALGORITHMS,
+    CANON_JCS,
     CANON_LAMBDA_V1,
     CANON_RECEIPT,
     DEFAULT_ALGORITHM,
@@ -34,12 +35,22 @@ from .canonical import (  # noqa: F401
 )
 from .chain import (  # noqa: F401
     CHECKPOINT_SCHEMA,
+    CHECKPOINT_V2_SCHEMA,
     ENVELOPE_SCHEMA,
     KERNEL_ALGORITHM,
     ChainVerification,
     ReceiptChain,
     UnifiedReceiptChain,
     tensor_digest,
+)
+from .jcs import JCSError, es_number, jcs_bytes, jcs_dumps  # noqa: F401
+from .merkle import (  # noqa: F401
+    MerkleError,
+    consistency_proof,
+    inclusion_proof,
+    mth,
+    verify_consistency,
+    verify_inclusion,
 )
 from .lambda_gate import (  # noqa: F401
     CONJECTURE_1,
@@ -55,5 +66,5 @@ from .lambda_gate import (  # noqa: F401
     log_lambda_v1,
 )
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __all__ = [name for name in dir() if not name.startswith("_")]
