@@ -19,7 +19,7 @@ classifiers = [
 ]
 
 [project.urls]
-Source = "https://github.com/szl-holdings/szl-kernels"
+Source = "https://github.com/szl-holdings/szl-evidence-core"
 Contract = "https://github.com/szl-holdings/szl-lambda-gate"
 
 [project.scripts]
