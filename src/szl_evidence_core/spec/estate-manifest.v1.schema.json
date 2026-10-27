@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://a-11-oy.com/schemas/szl/estate-manifest.v1.schema.json",
+  "title": "SZL Estate Claim and Source Manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "manifest_id", "revision", "generated_at", "records"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "manifest_id": {"type": "string", "minLength": 1},
+    "revision": {"type": "string", "pattern": "^[0-9a-fA-F]{40}$"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "records": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/record"}}
+  },
+  "$defs": {
+    "sha1": {"type": "string", "pattern": "^[0-9a-fA-F]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-fA-F]{64}$"},
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "name", "owner", "scope", "status", "github", "hf", "domain", "verification", "allowed_language", "receipt"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "kind": {"enum": ["claim", "artifact", "runtime", "domain", "vertical"]},
+        "name": {"type": "string", "minLength": 1},
+        "owner": {"type": "string", "minLength": 1},
+        "scope": {"type": "string", "minLength": 1},
+        "status": {"enum": ["PROVED", "CONDITIONAL", "AXIOM_GATED", "OPERATIONAL", "QUALIFIED", "CONJECTURE", "SORRY", "UNVERIFIED", "SOURCE_UNBOUND", "HISTORICAL"]},
+        "github": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/github"}]},
+        "hf": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/hf"}]},
+        "domain": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/domain"}]},
+        "verification": {"$ref": "#/$defs/verification"},
+        "allowed_language": {"type": "object", "additionalProperties": false, "required": ["product", "runtime", "research", "marketing"], "properties": {"product": {"type": "string"}, "runtime": {"type": "string"}, "research": {"type": "string"}, "marketing": {"type": "string"}}},
+        "receipt": {"$ref": "#/$defs/receipt"}
+      }
+    },
+    "github": {
+      "type": "object", "additionalProperties": false,
+      "required": ["repository", "ref_type", "revision", "path", "artifact_digest"],
+      "properties": {
+        "repository": {"type": "string", "pattern": "^[^/]+/[^/]+$"},
+        "ref_type": {"enum": ["commit", "tag", "branch"]},
+        "revision": {"$ref": "#/$defs/sha1"},
+        "path": {"type": "string", "minLength": 1},
+        "artifact_digest": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "hf": {
+      "type": "object", "additionalProperties": false,
+      "required": ["organization", "asset_type", "name", "revision", "artifact_digest", "license", "served_bytes_sha256", "readback_at"],
+      "properties": {
+        "organization": {"type": "string", "minLength": 1},
+        "asset_type": {"enum": ["model", "dataset", "space", "kernel"]},
+        "name": {"type": "string", "minLength": 1},
+        "revision": {"$ref": "#/$defs/sha1"},
+        "artifact_digest": {"$ref": "#/$defs/sha256"},
+        "license": {"type": "string", "minLength": 1},
+        "served_bytes_sha256": {"$ref": "#/$defs/sha256"},
+        "readback_at": {"type": "string", "format": "date-time"},
+        "source_revision": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/sha1"}]}
+      }
+    },
+    "domain": {
+      "type": "object", "additionalProperties": false,
+      "required": ["url", "observed_at", "served_bytes_sha256", "source_revision"],
+      "properties": {
+        "url": {"type": "string", "format": "uri", "pattern": "^https://"},
+        "observed_at": {"type": "string", "format": "date-time"},
+        "served_bytes_sha256": {"$ref": "#/$defs/sha256"},
+        "source_revision": {"anyOf": [{"type": "null"}, {"$ref": "#/$defs/sha1"}]}
+      }
+    },
+    "verification": {
+      "type": "object", "additionalProperties": true,
+      "required": ["verifier_version", "workflow_run_ids", "security_results", "signer_identity", "signature_status", "freshness", "rollback_pointer"],
+      "properties": {
+        "verifier_version": {"type": "string", "minLength": 1},
+        "workflow_run_ids": {"type": "array", "items": {"type": "string"}},
+        "security_results": {"type": "array", "items": {"type": "string"}},
+        "signer_identity": {"type": "string", "minLength": 1},
+        "signature_status": {"enum": ["VERIFIED", "UNVERIFIED", "ABSENT", "SKIPPED"]},
+        "freshness": {"type": "string", "format": "date-time"},
+        "rollback_pointer": {"type": "string", "minLength": 1},
+        "proof": {"type": "object"}
+      }
+    },
+    "receipt": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "source_revision", "artifact_digest", "signer", "signature_status", "issued_at"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "source_revision": {"$ref": "#/$defs/sha1"},
+        "artifact_digest": {"$ref": "#/$defs/sha256"},
+        "signer": {"type": "string", "minLength": 1},
+        "signature_status": {"enum": ["VERIFIED", "UNVERIFIED", "ABSENT", "SKIPPED"]},
+        "issued_at": {"type": "string", "format": "date-time"}
+      }
+    }
+  }
+}
+
