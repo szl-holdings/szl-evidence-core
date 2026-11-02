@@ -48,3 +48,11 @@ chain.to_envelope()                                 # declares algorithm, canon,
 What the audit measured, and this package fixes, is in `MIGRATION.md`. Who leads this
 way of thinking and what we took from them is in `docs/FRONTIER.md`.
 Evidence of every run is in `evidence/`.
+
+
+Compatibility runs fail if a discovered `_chain.py` cannot be imported or exposes
+neither supported chain API. For a fixed estate, repeat `--require-chain` with
+each expected path relative to the checkout root; a missing file then blocks the
+run even when other consumers pass. CI requires all seven consumer paths and
+fails on a clone error. The check compares the fetched source, not an immutable
+historical consumer revision.

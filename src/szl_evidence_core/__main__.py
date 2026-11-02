@@ -6,9 +6,10 @@
         Fixtures that prove this package's own invariants. Gate 0.
     python -m szl_evidence_core vectors
         Vendored szl.lambda/v1 reference against all 60 golden vectors, bitwise.
-    python -m szl_evidence_core compat <estate-root>
+    python -m szl_evidence_core compat <estate-root> [--require-chain relative/path]
         Import the ORIGINAL _chain.py files from a checkout and prove digest,
-        verdict and export byte-equality against this package.
+        verdict and export byte-equality against this package. Missing required
+        files, import failures and unsupported chain APIs block compatibility.
     python -m szl_evidence_core audit <estate-root> [--json out.json]
         Measure primitive divergence (algorithm, separators, allow_nan,
         ensure_ascii, genesis) across every receipt implementation.
@@ -293,15 +294,21 @@ def _load_module(path: Path, name: str) -> types.ModuleType | None:
     sys.modules[name] = mod  # dataclasses resolve their module through sys.modules
     try:
         spec.loader.exec_module(mod)
-    except Exception as exc:  # the original may need torch or a sibling package
+    except (Exception, SystemExit) as exc:  # a consumer cannot terminate the gate successfully
         print(f"  skip {path}: {type(exc).__name__}: {exc}")
         return None
     return mod
 
 
-def compat(root: Path) -> str:
+def compat(root: Path, required_chains: list[str] | None = None) -> str:
     f = Fixtures()
-    unified = sorted(p for p in root.rglob("_chain.py") if "build/" not in str(p) and "corpus/" not in str(p))
+    # Exclusions are relative directory names, not substrings of the host path.
+    unified = sorted(p for p in root.rglob("_chain.py")
+                     if not {"build", "corpus"}.intersection(p.relative_to(root).parts[:-1]))
+    discovered = {p.relative_to(root).as_posix() for p in unified}
+    for required in required_chains or []:
+        f.check(f"compat.required_chain {required}", required in discovered,
+                "required original _chain.py was not discovered")
     payload_fixture = [{"a": 1, "s": "ü"}, {"a": 2, "nested": {"z": [1, 2, 3]}}, {"a": 3, "flag": True, "none": None}]
     ops_fixture = [("governed_norm", "rms_norm", {"eps": 1e-6, "in_shape": [2, 3]}),
                    ("lambda_gate", "lambda_gate", {"score": 0.91, "threshold": 0.8, "passed": True, "k": 4, "advisory": True}),
@@ -309,9 +316,10 @@ def compat(root: Path) -> str:
     tested = 0
     for path in unified:
         mod = _load_module(path, f"orig_{tested}")
-        if mod is None:
-            continue
         rel = str(path.relative_to(root))
+        if mod is None:
+            f.check(f"{rel}: import", False, "original could not be imported")
+            continue
         if hasattr(mod, "UnifiedReceiptChain"):
             orig = mod.UnifiedReceiptChain(); mine = CH.UnifiedReceiptChain()
             for k, o, a in ops_fixture:
@@ -340,6 +348,9 @@ def compat(root: Path) -> str:
             f.check(f"{rel}: verify tuple", tuple(orig.verify()) == tuple(mine.verify()) == (True, 3, -1))
             f.check(f"{rel}: len", len(orig) == len(mine) == 3)
             tested += 1
+        else:
+            f.check(f"{rel}: supported chain API", False,
+                    "original exports neither UnifiedReceiptChain nor ReceiptChain")
     f.check("compat.at_least_one_original_imported", tested > 0, "no _chain.py could be imported")
     return f.report(f"compat against {tested} original _chain.py files")
 
@@ -558,12 +569,14 @@ def main(argv: list[str] | None = None) -> int:
     sub = ap.add_subparsers(dest="cmd", required=True)
     sub.add_parser("selftest"); sub.add_parser("vectors")
     c = sub.add_parser("compat"); c.add_argument("root", type=Path)
+    c.add_argument("--require-chain", action="append", default=[],
+                   help="required root-relative _chain.py path; repeat for each consumer")
     a = sub.add_parser("audit"); a.add_argument("root", type=Path); a.add_argument("--json", type=Path)
     d = sub.add_parser("lambda-divergence"); d.add_argument("root", type=Path)
     ns = ap.parse_args(argv)
     if ns.cmd == "selftest": status = selftest()
     elif ns.cmd == "vectors": status = vectors()
-    elif ns.cmd == "compat": status = compat(ns.root)
+    elif ns.cmd == "compat": status = compat(ns.root, ns.require_chain)
     elif ns.cmd == "audit": status = audit(ns.root, ns.json)
     else: status = lambda_divergence(ns.root)
     return EXIT.get(status, 3)
@@ -571,3 +584,4 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+
