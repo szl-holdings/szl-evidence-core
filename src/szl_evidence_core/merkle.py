@@ -56,6 +56,18 @@ def _h(algorithm: str):
         raise MerkleError(f"unknown hash algorithm {algorithm!r}") from None
 
 
+def _valid_hashes(proof: Sequence[bytes], roots: Sequence[bytes], algorithm: str) -> bool:
+    """Validate commitments even when verification takes the equal-size shortcut."""
+    size = _h(algorithm).digest_size
+    if size <= 0:
+        raise MerkleError("Merkle proofs require a fixed-size hash algorithm")
+    if not isinstance(proof, Sequence) or isinstance(proof, (str, bytes, bytearray)):
+        return False
+    return all(isinstance(value, bytes) and len(value) == size for value in roots) and all(
+        isinstance(value, bytes) and len(value) == size for value in proof
+    )
+
+
 def leaf_hash(data: bytes, algorithm: str = "sha256") -> bytes:
     h = _h(algorithm); h.update(b"\x00"); h.update(data); return h.digest()
 
@@ -98,8 +110,16 @@ def inclusion_proof(index: int, leaves: Sequence[bytes], algorithm: str = "sha25
 
 def verify_inclusion(leaf: bytes, index: int, tree_size: int, proof: Sequence[bytes],
                      root: bytes, algorithm: str = "sha256") -> bool:
-    """RFC 9162 §2.1.3.2. ``leaf`` is the leaf *input*; constant-time root compare."""
+    """RFC 9162 §2.1.3.2; malformed sizes, commitments and paths return False.
+
+    ``leaf`` is the leaf *input*; root comparison is constant-time. Unknown or
+    variable-output hash algorithms raise ``MerkleError``.
+    """
+    if type(index) is not int or type(tree_size) is not int:
+        return False
     if tree_size <= 0 or not 0 <= index < tree_size:
+        return False
+    if not isinstance(leaf, bytes) or not _valid_hashes(proof, (root,), algorithm):
         return False
     fn, sn = index, tree_size - 1
     r = leaf_hash(leaf, algorithm)
@@ -139,8 +159,16 @@ def _subproof(m: int, d: Sequence[bytes], b: bool, algorithm: str) -> list[bytes
 
 def verify_consistency(m: int, n: int, proof: Sequence[bytes], old_root: bytes,
                        new_root: bytes, algorithm: str = "sha256") -> bool:
-    """RFC 9162 §2.1.4.2, step for step."""
+    """RFC 9162 §2.1.4.2 for positive earlier size m.
+
+    Malformed sizes, commitments and paths return False. Unknown or
+    variable-output hash algorithms raise ``MerkleError``.
+    """
+    if type(m) is not int or type(n) is not int:
+        return False
     if m <= 0 or n < m:
+        return False
+    if not _valid_hashes(proof, (old_root, new_root), algorithm):
         return False
     if m == n:
         return not proof and hmac.compare_digest(old_root, new_root)

@@ -49,6 +49,13 @@ What the audit measured, and this package fixes, is in `MIGRATION.md`. Who leads
 way of thinking and what we took from them is in `docs/FRONTIER.md`.
 Evidence of every run is in `evidence/`.
 
+Merkle proof verification rejects malformed tree sizes, indices, roots, and proof
+hashes before evaluating a path, including equal-size consistency comparisons.
+Roots and proof nodes must be `bytes` of the selected fixed-output hash's digest
+length. Consistency verification retains its positive-earlier-size domain;
+an empty tree hash is available through `mth([])`. These checks prove neither
+the identity nor the truthfulness of a party supplying a valid root.
+
 
 Compatibility runs fail if a discovered `_chain.py` cannot be imported or exposes
 neither supported chain API. For a fixed estate, repeat `--require-chain` with

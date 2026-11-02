@@ -3,9 +3,13 @@ import unittest
 from datetime import datetime, timezone
 from pathlib import Path
 import sys
+import json
+import tempfile
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
-from szl_evidence_core.estate_manifest import admit, validate_manifest, validate_record
+from szl_evidence_core.estate_manifest import (
+    ManifestError, admit, load_manifest, validate_manifest, validate_record,
+)
 
 NOW = datetime(2026, 10, 27, 20, 0, tzinfo=timezone.utc)
 SHA = "a" * 40
@@ -55,6 +59,54 @@ def record(status="CONDITIONAL"):
     }
 
 class EstateManifestTests(unittest.TestCase):
+    def test_non_string_enum_fields_are_denied_without_exceptions(self):
+        fields = (
+            ("kind",),
+            ("status",),
+            ("github", "ref_type"),
+            ("hf", "asset_type"),
+            ("verification", "signature_status"),
+            ("receipt", "signature_status"),
+        )
+        for field in fields:
+            for value in ([], {}, None, True, 1):
+                with self.subTest(field=".".join(field), value=value):
+                    item = record()
+                    item["hf"] = {
+                        "organization": "SZLHOLDINGS",
+                        "asset_type": "space",
+                        "name": "example",
+                        "revision": SHA,
+                        "artifact_digest": DIGEST,
+                        "license": "Apache-2.0",
+                        "served_bytes_sha256": SERVED,
+                        "readback_at": "2026-10-27T19:00:00Z",
+                        "source_revision": SHA,
+                    }
+                    target = item if len(field) == 1 else item[field[0]]
+                    target[field[-1]] = value
+                    expected = ".".join(field) + ": invalid"
+                    self.assertIn(expected, validate_record(item))
+                    admission = admit(item, now=NOW)
+                    self.assertEqual(admission.decision, "DENY")
+                    self.assertIn(expected, admission.reasons)
+
+    def test_manifest_loader_reports_malformed_enum_as_manifest_error(self):
+        item = record()
+        item["status"] = []
+        manifest = {
+            "schema_version": "1.0.0",
+            "manifest_id": "estate-1",
+            "revision": SHA,
+            "generated_at": "2026-10-27T19:00:00Z",
+            "records": [item],
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "manifest.json"
+            path.write_text(json.dumps(manifest), encoding="utf-8")
+            with self.assertRaisesRegex(ManifestError, r"records\[0\]\.status: invalid"):
+                load_manifest(path)
+
     def test_conditional_is_advisory(self):
         self.assertEqual(admit(record(), now=NOW).decision, "ADVISORY")
 
