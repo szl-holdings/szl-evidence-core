@@ -55,3 +55,11 @@ Roots and proof nodes must be `bytes` of the selected fixed-output hash's digest
 length. Consistency verification retains its positive-earlier-size domain;
 an empty tree hash is available through `mth([])`. These checks prove neither
 the identity nor the truthfulness of a party supplying a valid root.
+
+
+Compatibility runs fail if a discovered `_chain.py` cannot be imported or exposes
+neither supported chain API. For a fixed estate, repeat `--require-chain` with
+each expected path relative to the checkout root; a missing file then blocks the
+run even when other consumers pass. CI requires all seven consumer paths and
+fails on a clone error. The check compares the fetched source, not an immutable
+historical consumer revision.
