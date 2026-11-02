@@ -221,7 +221,9 @@ def admit(record: Mapping[str, Any], *, now: datetime | None = None, max_age_sec
         if not isinstance(proof, Mapping): return Admission("DENY", ("PROVED claim requires explicit proof witness",))
         for key in ("lake_build","theorem_symbol","axioms","sorry_count","cross_check","source_revision"):
             if key not in proof: return Admission("DENY", (f"proof.{key}: required",))
-        if proof["lake_build"] != "PASS" or proof["sorry_count"] != 0: return Admission("DENY", ("proof witness is not clean",))
+        # Booleans and floating-point zero are not integer proof counts.
+        if proof["lake_build"] != "PASS" or type(proof["sorry_count"]) is not int or proof["sorry_count"] != 0:
+            return Admission("DENY", ("proof witness is not clean",))
         if proof["source_revision"] != github["revision"]: return Admission("DENY", ("proof witness source revision mismatch",))
     if status in {"CONDITIONAL","AXIOM_GATED"}: return Admission("ADVISORY", (f"status {status} permits advisory use only",))
     return Admission("ALLOW", ("exact source, fresh signed receipt, and readback evidence present",))
