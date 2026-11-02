@@ -189,9 +189,15 @@ def _bound(record: Mapping[str, Any], reasons: list[str]) -> bool:
     return True
 
 def admit(record: Mapping[str, Any], *, now: datetime | None = None, max_age_seconds: int = 86400) -> Admission:
+    """Evaluate a record using a positive integer freshness budget in seconds.
+
+    Invalid budgets fail closed; floats (including NaN/infinity) and booleans
+    are not policy values, even when Python would compare them to integers.
+    """
     structural = validate_record(record)
     if structural: return Admission("DENY", tuple(structural))
-    if max_age_seconds <= 0: return Admission("DENY", ("max_age_seconds must be positive",))
+    if type(max_age_seconds) is not int or max_age_seconds <= 0:
+        return Admission("DENY", ("max_age_seconds must be a positive integer",))
     now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
     status = record["status"]
     if status in {"SOURCE_UNBOUND","HISTORICAL"}: return Admission("INCOMPARABLE", (f"status {status} is not admissible",))
