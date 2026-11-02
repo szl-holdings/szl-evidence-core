@@ -64,7 +64,7 @@ def _github(value: Any, errors: list[str]) -> None:
     for key in ("repository","ref_type","revision","path","artifact_digest"):
         _need(key in item, f"github.{key}: required", errors)
     _need(isinstance(item.get("repository"), str) and "/" in str(item.get("repository")), "github.repository: owner/name required", errors)
-    _need(item.get("ref_type") in {"commit","tag","branch"}, "github.ref_type: invalid", errors)
+    _need(isinstance(item.get("ref_type"), str) and item.get("ref_type") in {"commit","tag","branch"}, "github.ref_type: invalid", errors)
     if item.get("ref_type") == "branch": errors.append("github.ref_type: branch-only bindings are not admissible")
     _digest(item.get("revision"), SHA1, "github.revision", errors)
     _digest(item.get("artifact_digest"), SHA256, "github.artifact_digest", errors)
@@ -77,7 +77,7 @@ def _hf(value: Any, errors: list[str]) -> None:
     for key in ("organization","asset_type","name","revision","artifact_digest","license","served_bytes_sha256","readback_at"):
         _need(key in item, f"hf.{key}: required", errors)
     _need(isinstance(item.get("organization"), str) and bool(item.get("organization")), "hf.organization: required", errors)
-    _need(item.get("asset_type") in {"model","dataset","space","kernel"}, "hf.asset_type: invalid", errors)
+    _need(isinstance(item.get("asset_type"), str) and item.get("asset_type") in {"model","dataset","space","kernel"}, "hf.asset_type: invalid", errors)
     _need(isinstance(item.get("name"), str) and bool(item.get("name")), "hf.name: required", errors)
     _digest(item.get("revision"), SHA1, "hf.revision", errors)
     _digest(item.get("artifact_digest"), SHA256, "hf.artifact_digest", errors)
@@ -106,7 +106,7 @@ def _verification(value: Any, errors: list[str]) -> None:
     _need(isinstance(item.get("workflow_run_ids"), list), "verification.workflow_run_ids: list required", errors)
     _need(isinstance(item.get("security_results"), list), "verification.security_results: list required", errors)
     _need(isinstance(item.get("signer_identity"), str) and bool(item.get("signer_identity")), "verification.signer_identity: required", errors)
-    _need(item.get("signature_status") in SIGNATURE_STATES, "verification.signature_status: invalid", errors)
+    _need(isinstance(item.get("signature_status"), str) and item.get("signature_status") in SIGNATURE_STATES, "verification.signature_status: invalid", errors)
     _time(item.get("freshness"), "verification.freshness", errors)
     _need(isinstance(item.get("rollback_pointer"), str) and bool(item.get("rollback_pointer")), "verification.rollback_pointer: required", errors)
 
@@ -119,7 +119,7 @@ def _receipt(value: Any, errors: list[str]) -> None:
     _digest(item.get("source_revision"), SHA1, "receipt.source_revision", errors)
     _digest(item.get("artifact_digest"), SHA256, "receipt.artifact_digest", errors)
     _need(isinstance(item.get("signer"), str) and bool(item.get("signer")), "receipt.signer: required", errors)
-    _need(item.get("signature_status") in SIGNATURE_STATES, "receipt.signature_status: invalid", errors)
+    _need(isinstance(item.get("signature_status"), str) and item.get("signature_status") in SIGNATURE_STATES, "receipt.signature_status: invalid", errors)
     _time(item.get("issued_at"), "receipt.issued_at", errors)
 
 def _language(value: Any, errors: list[str]) -> None:
@@ -136,11 +136,11 @@ def validate_record(record: Any) -> list[str]:
     for key in ("id","kind","name","owner","scope","status","github","hf","domain","verification","allowed_language","receipt"):
         _need(key in item, f"{key}: required", errors)
     _need(isinstance(item.get("id"), str) and bool(item.get("id")), "id: required", errors)
-    _need(item.get("kind") in KINDS, "kind: invalid", errors)
+    _need(isinstance(item.get("kind"), str) and item.get("kind") in KINDS, "kind: invalid", errors)
     _need(isinstance(item.get("name"), str) and bool(item.get("name")), "name: required", errors)
     _need(isinstance(item.get("owner"), str) and bool(item.get("owner")), "owner: required", errors)
     _need(isinstance(item.get("scope"), str) and bool(item.get("scope")), "scope: required", errors)
-    _need(item.get("status") in STATUSES, "status: invalid", errors)
+    _need(isinstance(item.get("status"), str) and item.get("status") in STATUSES, "status: invalid", errors)
     _github(item.get("github"), errors); _hf(item.get("hf"), errors); _domain(item.get("domain"), errors)
     _verification(item.get("verification"), errors); _language(item.get("allowed_language"), errors); _receipt(item.get("receipt"), errors)
     return errors
