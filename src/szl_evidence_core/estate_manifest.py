@@ -52,7 +52,9 @@ def _time(value: Any, field: str, errors: list[str]) -> datetime | None:
         errors.append(f"{field}: invalid ISO-8601 timestamp"); return None
     if parsed.tzinfo is None:
         errors.append(f"{field}: timezone required"); return None
-    return parsed.astimezone(timezone.utc)
+    try: return parsed.astimezone(timezone.utc)
+    except OverflowError:
+        errors.append(f"{field}: timestamp outside supported UTC range"); return None
 
 def _digest(value: Any, pattern: re.Pattern[str], field: str, errors: list[str]) -> None:
     _need(isinstance(value, str) and bool(pattern.fullmatch(value)), f"{field}: exact digest required", errors)
