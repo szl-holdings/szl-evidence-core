@@ -63,3 +63,9 @@ each expected path relative to the checkout root; a missing file then blocks the
 run even when other consumers pass. CI requires all seven consumer paths and
 fails on a clone error. The check compares the fetched source, not an immutable
 historical consumer revision.
+
+Estate on Hugging Face: models, datasets and Spaces are published under the [SZLHOLDINGS](https://huggingface.co/SZLHOLDINGS) org.
+
+## License
+
+Apache-2.0 — see [LICENSE](LICENSE).
