@@ -568,7 +568,8 @@ class ReceiptChain:
     ``emit(payload) -> digest`` and ``verify() -> (ok, count, first_break)``
     exactly as the four sources, so a consumer repoints its import and changes
     nothing else. Row shape is ``{**payload, seq, prev, digest}``; the digest
-    covers everything but ``digest``.
+    covers everything but ``digest``. Each stored row owns a detached snapshot
+    of its payload, so later caller mutation cannot rewrite committed history.
     """
 
     def __init__(self, algorithm: str = KERNEL_ALGORITHM) -> None:
@@ -589,7 +590,9 @@ class ReceiptChain:
             raise ValueError("payload must not define reserved keys seq, prev or digest")
         with self._lock:
             prev = self._rows[-1]["digest"] if self._rows else GENESIS
-            body = dict(payload)
+            # Snapshot before hashing so the committed body and its digest
+            # describe the same owned values, including nested lists/dicts.
+            body = copy.deepcopy(dict(payload))
             body["seq"] = len(self._rows)
             body["prev"] = prev
             # check=True refuses NaN/Inf and non-string keys at emit time.
