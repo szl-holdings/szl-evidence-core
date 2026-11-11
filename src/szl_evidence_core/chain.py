@@ -509,7 +509,9 @@ class UnifiedReceiptChain:
         Accepts the legacy bare list (algorithm assumed SHA3-256, as every
         source copy used) or an envelope (algorithm read from the envelope).
         Duplicate keys, non-finite constants, malformed records and wrong
-        sequence ordinals are rejected. Invalid JSON returns ``(False, 0, 0)``.
+        sequence ordinals are rejected. Envelope algorithms must be supported
+        strings and depths must be nonnegative integers, not booleans or floats.
+        Invalid JSON returns ``(False, 0, 0)``.
         """
         UnifiedReceiptChain._validate_checkpoint(expected_head, expected_depth)
 
@@ -538,8 +540,10 @@ class UnifiedReceiptChain:
             if doc.get("schema") != ENVELOPE_SCHEMA or "records" not in doc:
                 return ChainVerification(False, 0, 0, "object is not a receipt envelope")
             algorithm = doc.get("algorithm", KERNEL_ALGORITHM)
-            if algorithm not in ALGORITHMS:
+            if not isinstance(algorithm, str) or algorithm not in ALGORITHMS:
                 return ChainVerification(False, 0, 0, f"envelope algorithm {algorithm!r} unknown")
+            if type(doc.get("depth")) is not int or doc["depth"] < 0:
+                return ChainVerification(False, 0, 0, "envelope depth is not a nonnegative integer")
             if doc.get("genesis", GENESIS) != GENESIS:
                 return ChainVerification(False, 0, 0, "envelope genesis is not the shared genesis")
             records = doc["records"]
