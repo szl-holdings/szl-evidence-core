@@ -308,16 +308,29 @@ class UnifiedReceiptChain:
 
     @staticmethod
     def verify_inclusion_proof(proof: Dict[str, Any], checkpoint: Dict[str, Any]) -> bool:
-        """Check an inclusion proof against a v2 checkpoint. No ledger needed."""
+        """Check a receipt inclusion proof against a v2 checkpoint.
+
+        Malformed envelopes return False. Counts and indices must be integers;
+        coercion would weaken the underlying Merkle verifier's admission rules.
+        No ledger is needed.
+        """
         from .merkle import verify_inclusion
 
+        if not isinstance(proof, dict) or not isinstance(checkpoint, dict):
+            return False
         try:
-            if checkpoint.get("schema") != CHECKPOINT_V2_SCHEMA:
+            if (proof.get("schema") != "szl.receipt-inclusion/v1"
+                    or checkpoint.get("schema") != CHECKPOINT_V2_SCHEMA):
+                return False
+            if (type(proof.get("seq")) is not int
+                    or type(proof.get("tree_size")) is not int
+                    or type(checkpoint.get("tree_size")) is not int
+                    or not isinstance(proof.get("proof"), list)):
                 return False
             if proof.get("tree_size") != checkpoint.get("tree_size") or proof.get("hash") != checkpoint.get("hash"):
                 return False
             return verify_inclusion(
-                bytes.fromhex(proof["leaf"]), int(proof["seq"]), int(proof["tree_size"]),
+                bytes.fromhex(proof["leaf"]), proof["seq"], proof["tree_size"],
                 [bytes.fromhex(p) for p in proof["proof"]],
                 bytes.fromhex(checkpoint["root_hash"]), checkpoint["hash"])
         except (KeyError, TypeError, ValueError):
