@@ -73,13 +73,29 @@ jobs:
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: "3.12"
-      - name: Fetch the consumer repositories at their default branches
+      - name: Fetch the consumer repositories at pinned revisions (fail-closed)
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           mkdir -p /tmp/estate
           for r in szl-kernels szl-blocked szl-provctl szl-receipt-attn szl-block-kv szl-maskmod YARQA-ATTN; do
             git clone --depth 1 "https://github.com/szl-holdings/$r.git" "/tmp/estate/$r"
+          done
+          declare -A PINNED=(
+            ["szl-kernels"]="1ccbc1d970797049a01769ea1590180719988773"
+            ["szl-blocked"]="da3e054c581ed31530a7e831f67b7042533af6f3"
+            ["szl-provctl"]="f987d42fb42a7a57cddb9b432d5b9852dd7fcda2"
+            ["szl-receipt-attn"]="e606b0147f4b8626c888bc5da300ef7f00fce716"
+            ["szl-block-kv"]="9aefb5f2761374873e206e0c47d2307dc03abba5"
+            ["szl-maskmod"]="539d9bede4c2723e17f628ad961285dcc76fcc65"
+            ["YARQA-ATTN"]="b1b33dc18dfa7146705fc5a418d3483b655d8929"
+          )
+          for r in "${!PINNED[@]}"; do
+            actual="$(git -C "/tmp/estate/$r" rev-parse HEAD)"
+            test "$actual" = "${PINNED[$r]}" || {
+              echo "consumer baseline $r drifted: expected ${PINNED[$r]}, got $actual - pin refresh requires re-review"
+              exit 1
+            }
           done
       - name: compat
         run: >-
