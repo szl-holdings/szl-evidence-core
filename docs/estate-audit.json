@@ -1,0 +1,69 @@
+{
+  "metadata": {
+    "repo_name": "szl-evidence-core",
+    "last_audit_date": "2026-11-22",
+    "loop_level": 1
+  },
+  "estate_context": {
+    "purpose_domain": "Evidence and receipt library with canonical profiles, inclusion-proof admission, and an szl.air-receipt/v1 JSON profile, plus canonical PyPI publication",
+    "baseline_commit": "5ec868fe06ad129d4ee1701744b12abccea85f84",
+    "leader_profiles": [
+      {
+        "name": "Sigstore",
+        "url": "https://github.com/sigstore/sigstore",
+        "checked_date": "2026-11-22"
+      },
+      {
+        "name": "PyPA Warehouse",
+        "url": "https://github.com/pypa/warehouse",
+        "checked_date": "2026-11-22"
+      }
+    ]
+  },
+  "evidence_index": {
+    "publications": [
+      {
+        "id": "github:sigstore/sigstore",
+        "link": "https://github.com/sigstore/sigstore",
+        "applicability": "Assigned signing/transparency and publishing-trust leader for receipt signature, identity, inclusion-proof, and verification comparisons; no Sigstore integration is asserted."
+      },
+      {
+        "id": "github:pypa/warehouse",
+        "link": "https://github.com/pypa/warehouse",
+        "applicability": "Assigned PyPI publishing-trust leader for the new OIDC trusted-publishing path and for later review of index-hosted attestations under PEP 740; no uploaded release or attestation is inferred from CI configuration."
+      },
+      {
+        "id": "github:szl-holdings/szl-evidence-core",
+        "link": "https://github.com/szl-holdings/szl-evidence-core/pull/25",
+        "applicability": "In-repo head evidence: szl.air-receipt/v1 JSON profile of IETF AIR draft-tsyrulnikov-rats-attested-inference-receipt-02 plus conformance suite (#25)."
+      },
+      {
+        "id": "github:szl-holdings/szl-evidence-core",
+        "link": "https://github.com/szl-holdings/szl-evidence-core/pull/23",
+        "applicability": "In-repo CI evidence: canonical PyPI publish path szl.pypi-release.v2 using OIDC trusted publishing, removal of Private :: Do Not Upload, and import_names declaration (#23)."
+      },
+      {
+        "id": "github:szl-holdings/szl-evidence-core",
+        "link": "https://github.com/szl-holdings/szl-evidence-core/pull/22",
+        "applicability": "In-repo publication-metadata evidence wiring the canonical Zenodo DOI into CITATION.cff (#22)."
+      },
+      {
+        "id": "github:szl-holdings/szl-evidence-core",
+        "link": "https://github.com/szl-holdings/szl-evidence-core/pull/11",
+        "applicability": "In-repo correctness evidence preserving strict receipt inclusion-proof admission (#11)."
+      }
+    ],
+    "gap_register": [
+      "The new szl.air-receipt/v1 profile targets draft-tsyrulnikov-rats-attested-inference-receipt-02, but the supplied inventory does not show a canonical draft URL, archived draft copy/hash, or version-expiry and interoperability test matrix alongside the conformance suite.",
+      "PyPI OIDC trusted publishing is configured (#23), but no published release URL, version, artifact digest, provenance/attestation, or successful release run is supplied; configuration alone does not prove publication.",
+      "Strict inclusion-proof admission (#11), malformed-envelope rejection (#19), and nested-payload snapshotting (#10) are recorded, but no consolidated verification document mapping these checks to runnable negative tests and canonical vectors is visible in the supplied top-level data.",
+      "A canonical Zenodo DOI is wired into CITATION.cff (#22), but the DOI value and the release/commit it resolves to are not present in the supplied inventory."
+    ],
+    "prioritized_changes": [
+      "Document the AIR profile's canonical draft URL and immutable draft-02 reference, supported receipt versions, and runnable positive/negative conformance and interoperability commands.",
+      "Add release evidence linking the PyPI project/version and source commit to CI run, OIDC identity, artifact hashes, and any available provenance or PEP 740 attestation verification.",
+      "Create a verification matrix for inclusion proofs, envelope validation, canonicalization vectors, and payload snapshotting, and record the Zenodo DOI plus its exact archived release/commit in PROVENANCE.md."
+    ]
+  },
+  "execution_trace": {}
+}
