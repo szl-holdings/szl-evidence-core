@@ -73,13 +73,39 @@ jobs:
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: "3.12"
-      - name: Fetch the consumer repositories at their default branches
+      - name: Fetch the consumer repositories at pinned revisions
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          set -euo pipefail
           mkdir -p /tmp/estate
+          # Immutable consumer revisions measured 2026-11-22 from each main HEAD.
+          # Bump via pull request when a consumer chain changes; missing pins fail closed.
+          pin_for() {
+            case "$1" in
+              szl-kernels)      echo 1ccbc1d970797049a01769ea1590180719988773 ;;
+              szl-blocked)      echo da3e054c581ed31530a7e831f67b7042533af6f3 ;;
+              szl-provctl)      echo f987d42fb42a7a57cddb9b432d5b9852dd7fcda2 ;;
+              szl-receipt-attn) echo e606b0147f4b8626c888bc5da300ef7f00fce716 ;;
+              szl-block-kv)     echo 9aefb5f2761374873e206e0c47d2307dc03abba5 ;;
+              szl-maskmod)      echo 539d9bede4c2723e17f628ad961285dcc76fcc65 ;;
+              YARQA-ATTN)       echo b1b33dc18dfa7146705fc5a418d3483b655d8929 ;;
+              *)              echo "" ;;
+            esac
+          }
           for r in szl-kernels szl-blocked szl-provctl szl-receipt-attn szl-block-kv szl-maskmod YARQA-ATTN; do
-            git clone --depth 1 "https://github.com/szl-holdings/$r.git" "/tmp/estate/$r"
+            pin="$(pin_for "$r")"
+            if [ -z "$pin" ]; then
+              echo "::error::$r has no pinned revision; add it to the pin map in ci.yml" >&2
+              exit 2
+            fi
+            git clone --quiet "https://github.com/szl-holdings/$r.git" "/tmp/estate/$r"
+            git -C "/tmp/estate/$r" checkout --quiet "$pin"
+            head_sha="$(git -C "/tmp/estate/$r" rev-parse HEAD)"
+            if [ "$head_sha" != "$pin" ]; then
+              echo "::error::$r pinned checkout mismatch: $head_sha != $pin" >&2
+              exit 2
+            fi
           done
       - name: compat
         run: >-
