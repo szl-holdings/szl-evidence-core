@@ -39,13 +39,13 @@ jobs:
               if not math.isfinite(x): continue
               n += 1; bad += rfc8785.dumps(x).decode() != es_number(x)
           assert bad == 0, f"{bad} number mismatches"
-          pool = ["a","Z","é","✓","日","\U0001F680","\U00010000","\uE000","\uFFFF","\n","\t","\b","\f","\r",'"',"\\","\x01","\x1f","\x7f","\u2028"," "]
+          pool = ["a","Z","Ã©","â","æ¥","\U0001F680","\U00010000","\uE000","\uFFFF","\n","\t","\b","\f","\r",'"',"\\","\x01","\x1f","\x7f","\u2028"," "]
           def s(): return "".join(rng.choice(pool) for _ in range(rng.randint(0,6)))
           def v(d=0):
               t = rng.random()
               if d > 3 or t < .25: return rng.choice([None, True, False, rng.randint(-2**53, 2**53), rng.random()*10**rng.randint(-10,25), s()])
-              if t < .6: return {s(): v(d+1) for _ in range(rng.randint(0,4))}
-              return [v(d+1) for _ in range(rng.randint(0,4))]
+              if t < .6: return {s(): v(d+1) for _ in range(rng.randint(0,4)}
+              return [v(d+1) for _ in range(rng.randint(0,4)]
           docs = sum(jcs_bytes(x) == rfc8785.dumps(x) for x in (v() for _ in range(5000)))
           assert docs == 5000, f"{5000-docs} document mismatches"
           print(f"jcs: {n} doubles and 5000 documents identical to rfc8785")
@@ -59,7 +59,7 @@ jobs:
       - name: Wheel builds and installs into a clean venv
         run: |
           python -m pip install --upgrade pip
-          python -m pip wheel --no-deps -w dist .
+          python -- pip wheel --no-deps -w dist .
           python -m venv /tmp/clean && /tmp/clean/bin/pip install dist/*.whl
           cd / && /tmp/clean/bin/python -m szl_evidence_core selftest && /tmp/clean/bin/python -m szl_evidence_core vectors
 
@@ -73,13 +73,39 @@ jobs:
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: "3.12"
-      - name: Fetch the consumer repositories at their default branches
+      - name: Fetch the consumer repositories at pinned revisions
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          set -euo pipefail
           mkdir -p /tmp/estate
+          # Immutable consumer revisions measured 2026-11-22 from each main HEAD.
+          # Bump via pull request when a consumer chain changes; missing pins fail closed.
+          pin_for() {
+            case "$1" in
+              szl-kernels)      echo 1ccbc1d970797049a01769ea1590180719988773 ;;
+              szl-blocked)      echo da3e054c581ed31530a7e831f67b7042533af6f3 ;;
+              szl-provctl)      echo f987d42fb42a7a57cddb9b432d5b9852dd7fcda2 ;;
+              szl-receipt-attn) echo e606b0147f4b8626c888bc5da300ef7f00fce716 ;;
+              szl-block-kv)     echo 9aefb5f2761374873e206e0c47d2307dc03abba5 ;;
+              szl-maskmod)      echo 539d9bede4c2723e17f628ad961285dcc76fcc65 ;;
+              YARQA-ATTN)       echo b1b33dc18dfa7146705fc5a418d3483b655d8929 ;;
+              *)                echo "" ;;
+            esac
+          }
           for r in szl-kernels szl-blocked szl-provctl szl-receipt-attn szl-block-kv szl-maskmod YARQA-ATTN; do
-            git clone --depth 1 "https://github.com/szl-holdings/$r.git" "/tmp/estate/$r"
+            pin="$(pin_for "$r")"
+            if [ -z "$pin" ]; then
+              echo "::error::$r has no pinned revision; add it to the pin map in ci.yml" >&2
+              exit 2
+            fi
+            git clone --quiet "https://github.com/szl-holdings/$r.git" "/tmp/estate/$r"
+            git -C "/tmp/estate/$r" checkout --quiet "$pin"
+            head_sha="$(git -C "/tmp/estate/$r" rev-parse HEAD)"
+            if [ "$head_sha" != "$pin" ]; then
+              echo "::error::$r pinned checkout mismatch: $head_sha != $pin" >&2
+              exit 2
+            fi
           done
       - name: compat
         run: >-
@@ -91,4 +117,3 @@ jobs:
           --require-chain szl-block-kv/torch-ext/szl_block_kv/_chain.py
           --require-chain szl-maskmod/torch-ext/szl_maskmod/_chain.py
           --require-chain YARQA-ATTN/torch-ext/yarqa_attn/_chain.py
-
