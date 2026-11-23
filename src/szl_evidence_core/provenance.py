@@ -13,7 +13,7 @@ import datetime as _dt
 import hashlib
 import json
 import subprocess
-from typing import Any, Optional
+from typing import Optional
 
 __all__ = ["ProvenanceError", "RECEIPT_SCHEMA", "current_git_sha", "emit_receipt"]
 

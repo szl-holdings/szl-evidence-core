@@ -14,7 +14,7 @@ class ProvenanceReceiptTest(unittest.TestCase):
 
     def test_cannot_forge_verified_kwarg(self):
         with self.assertRaises(TypeError):
-            emit_receipt(verified=True)
+            emit_receipt(verified=True)  # codeql[py/unsupported-keyword-argument-in-test] deliberate forge attempt; must raise TypeError (fail-closed test)
 
     def test_schema_and_fields(self):
         zeros40 = "0" * 40
