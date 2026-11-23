@@ -88,7 +88,7 @@ jobs:
             ["szl-receipt-attn"]="e606b0147f4b8626c888bc5da300ef7f00fce716"
             ["szl-block-kv"]="9aefb5f2761374873e206e0c47d2307dc03abba5"
             ["szl-maskmod"]="539d9bede4c2723e17f628ad961285dcc76fcc65"
-            ["YARQA-ATTN"]="b1b33dc18dfa7146705fc5a418d3483b655d8929"
+            ["YARQA-ATTN"]="fa27f01ef0c331baa77fb854e447ec47025a1b35"
           )
           for r in "${!PINNED[@]}"; do
             actual="$(git -C "/tmp/estate/$r" rev-parse HEAD)"
