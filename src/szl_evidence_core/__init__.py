@@ -66,5 +66,5 @@ from .lambda_gate import (  # noqa: F401
     log_lambda_v1,
 )
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 __all__ = [name for name in dir() if not name.startswith("_")]
